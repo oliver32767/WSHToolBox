@@ -59,7 +59,7 @@
 		4070BFE116CC8F5C00BF46C5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4070BFE016CC8F5C00BF46C5 /* CoreGraphics.framework */; };
 		4070BFE716CC8F5C00BF46C5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4070BFE516CC8F5C00BF46C5 /* InfoPlist.strings */; };
 		4070BFE916CC8F5C00BF46C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4070BFE816CC8F5C00BF46C5 /* main.m */; };
-		4070BFED16CC8F5C00BF46C5 /* WSHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4070BFEC16CC8F5C00BF46C5 /* WSHAppDelegate.m */; };
+		4070BFED16CC8F5C00BF46C5 /* WSHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4070BFEC16CC8F5C00BF46C5 /* WSHAppDelegate.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
 		4070BFFB16CC8F5D00BF46C5 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4070BFFA16CC8F5D00BF46C5 /* SenTestingKit.framework */; };
 		4070BFFC16CC8F5D00BF46C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4070BFDC16CC8F5C00BF46C5 /* UIKit.framework */; };
 		4070BFFD16CC8F5D00BF46C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4070BFDE16CC8F5C00BF46C5 /* Foundation.framework */; };
