@@ -38,6 +38,7 @@
     
     QEntryElement* name = [[QEntryElement alloc] initWithTitle:@"Name" Value:[WSHPreferences defaultUserName] Placeholder:nil];
     [name setKey:@"name"];
+    [name setAutocapitalizationType:UITextAutocapitalizationTypeWords];
     QEntryElement* location = [[QEntryElement alloc] initWithTitle:@"Location" Value:nil];
     [location setKey:@"location"];
     QDateTimeInlineElement* date = [[QDateTimeInlineElement alloc] initWithTitle:@"Date & Time" date:[NSDate date]];
@@ -88,13 +89,13 @@
 
 - (void) onCalculate
 {
-    WSHR10Report* report = [[WSHR10Report alloc] initWithRootElement:self.root];
-    if ([report objectForKey:@"name"]) {
-        [WSHPreferences setDefaultUserName:[report objectForKey:@"name"]];
+    WSHR10Report* report = [[WSHR10Report alloc] initWithFormData:[self dictionaryWithFormData]];
+    if ([report.formData objectForKey:@"name"]) {
+        [WSHPreferences setDefaultUserName:[report.formData objectForKey:@"name"]];
     }
     
-    if ([report objectForKey:@"chemicalName"]) {
-        [WSHPreferences addChemicalNameAutocompleteValue:[report objectForKey:@"chemicalName"]];
+    if ([report.formData objectForKey:@"chemicalName"]) {
+        [WSHPreferences addChemicalNameAutocompleteValue:[report.formData objectForKey:@"chemicalName"]];
     }
     
     [report setTitle:@"Rule of Ten"];

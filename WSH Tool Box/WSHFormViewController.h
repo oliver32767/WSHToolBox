@@ -23,6 +23,7 @@
 @interface WSHFormViewController : QuickDialogController
 
 -(void) showHtmlReport:(WSHReport*)report;
+-(NSDictionary*) dictionaryWithFormData;
 
 @property BOOL maintainHistory;
 

@@ -65,8 +65,8 @@
 
 - (void) onCalculate
 {
-    WSHDebugReport* report = [[WSHDebugReport alloc] initWithRootElement:self.root];
-    [WSHPreferences setDefaultUserName:[report objectForKey:@"name"]];
+    WSHDebugReport* report = [[WSHDebugReport alloc] initWithFormData:[self dictionaryWithFormData]];
+    [WSHPreferences setDefaultUserName:[report.formData objectForKey:@"name"]];
     [self showHtmlReport:report];
 //    WSHHtmlReportViewController* reportViewController = [[WSHHtmlReportViewController alloc] initWithNibName:@"WSHHtmlReportViewController" bundle:nil];
 //    reportViewController.report = report;

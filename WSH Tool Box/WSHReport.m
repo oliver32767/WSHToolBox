@@ -28,8 +28,6 @@
 
 @interface WSHReport ()
 
-@property NSMutableDictionary* data;
-
 @end
 
 @implementation WSHReport
@@ -43,16 +41,17 @@
          [NSDateFormatter dateFormatFromTemplate:DEFAULT_DATE_TEMPLATE options:0
                                           locale:[NSLocale currentLocale]]];
         self.floatFormat = DEFAULT_FLOAT_FORMAT;
-        self.data = [[NSMutableDictionary alloc] init];
+        self.formData = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
 -(id)initWithTitle:(NSString *)title
 {
-    self = [self init];
+    self = [super init];
     if (self) {
-        return [self initWithTitle:title andSubtitle:nil];
+        self.formData = [[NSMutableDictionary alloc] init];
+        self = [self initWithTitle:title andSubtitle:nil];
     }
     return self;
 }
@@ -63,67 +62,36 @@
     if (self) {
         [self setTitle:title];
         [self setSubtitle:subtitle];
+        self.formData = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
-- (id)initWithDictionary:(NSDictionary *)otherDictionary
+- (id)initWithFormData:(NSDictionary *)data
 {
     self = [self init];
     if (self) {
-        self.data = [[NSMutableDictionary alloc] initWithDictionary:otherDictionary];
-    }
-    return self;
-}
-
--(id) initWithRootElement:(QRootElement *)root
-{
-    self = [self init];
-    if (self) {
-        NSEnumerator* k = [[root allElementKeys] objectEnumerator];
-        NSString* key = nil;
-        QEntryElement* element = nil;
-        while (key = [k nextObject]) {
-            element = (QEntryElement*)[root elementWithKey:key];
-            if ([element isKindOfClass:[QDecimalElement class]]) {
-                
-                float f = [(QDecimalElement*) element floatValue];
-                
-                [self setObject:[NSNumber numberWithFloat:f]
-                         forKey:key];
-                
-            } else if ([element isKindOfClass:[QDateTimeInlineElement class]]) {
-                NSDate* date = [(QDateTimeInlineElement*) element dateValue];
-                [self setObject:[self.dateFormatter stringFromDate:date] forKey:key];
-                
-            } else if ([element isKindOfClass: [QEntryElement class]] ||
-                       [element isKindOfClass: [QAutoEntryElement class]]) {
-                [self setObject:[element textValue] forKey:key];
-                
-            } else {
-                [self setObject:[element value] forKey:key];
-            }
-        }
+        self.formData = [[NSMutableDictionary alloc] initWithDictionary:data];
     }
     return self;
 }
 
 -(NSString*)title
 {
-    return [self.data objectForKey:TITLE_KEY];
+    return [self.formData objectForKey:TITLE_KEY];
 }
 -(void)setTitle:(NSString *)title
 {
-    [_data setObject:title forKey:TITLE_KEY];
+    [self.formData setObject:title forKey:TITLE_KEY];
 }
 
 -(NSString*)subtitle
 {
-    return [self.data objectForKey:SUBTITLE_KEY];
+    return [self.formData objectForKey:SUBTITLE_KEY];
 }
 -(void)setSubtitle:(NSString *)subtitle
 {
-    [_data setObject:subtitle forKey:SUBTITLE_KEY];
+    [self.formData setObject:subtitle forKey:SUBTITLE_KEY];
 }
 
 -(BOOL) validateData:(NSError *__autoreleasing *)err
@@ -135,7 +103,7 @@
 {
     NSString* template = @"<html><head><title>{{_title||Untitled Report}}</title></head><body><p style=\"text-align:center;\">{{_title||Default Report}}<br/>{{_subtitle||}}</p><table style=\"width:100%;\"><tbody><tr><td style=\"width:50%; text-align:right;\">key</td><td style=\"width:50%;\">value</td></tr>";
     
-    NSEnumerator* k = [self.allKeys objectEnumerator];
+    NSEnumerator* k = [self.formData.allKeys objectEnumerator];
     NSString* key = nil;
     while (key = [k nextObject]) {
         template = [NSString stringWithFormat: @"%@<tr><td style=\"text-align:right;\">%@</td><td>{{%@}}</td></tr>",
@@ -148,38 +116,38 @@
     return YES;
 }
 
-- (void)setObject:(id)anObject forKey:(id < NSCopying >)aKey
-{
-    if (!anObject) {
-        [_data setObject:@"" forKey:aKey];
-    } else {
-        [_data setObject:anObject forKey:aKey];
-    }
-
-}
-- (void)removeObjectForKey:(id)aKey
-{
-    [_data removeObjectForKey:aKey];
-}
-
-- (NSUInteger)count
-{
-    return _data.count;
-}
-- (id)objectForKey:(id)aKey
-{
-    return [_data objectForKey:aKey];
-}
-- (NSArray*) allKeys
-{
-    return _data.allKeys;
-}
+//- (void)setObject:(id)anObject forKey:(id < NSCopying >)aKey
+//{
+//    if (!anObject) {
+//        [_data setObject:@"" forKey:aKey];
+//    } else {
+//        [_data setObject:anObject forKey:aKey];
+//    }
+//
+//}
+//- (void)removeObjectForKey:(id)aKey
+//{
+//    [_data removeObjectForKey:aKey];
+//}
+//
+//- (NSUInteger)count
+//{
+//    return _data.count;
+//}
+//- (id)objectForKey:(id)aKey
+//{
+//    return [_data objectForKey:aKey];
+//}
+//- (NSArray*) allKeys
+//{
+//    return _data.allKeys;
+//}
 
 - (NSDictionary*) dictionaryWithStringsForObjects
 {
     NSMutableDictionary* rv = [[NSMutableDictionary alloc] init];
-    for (id key in [_data allKeys]) {
-        [rv setObject:[self stringForObject:[_data objectForKey:key]
+    for (id key in [self.formData allKeys]) {
+        [rv setObject:[self stringForObject:[self.formData objectForKey:key]
                                     withKey:key]
                forKey:key];
     }

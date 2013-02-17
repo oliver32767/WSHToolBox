@@ -67,6 +67,38 @@
     self.quickDialogTableView.backgroundColor = [UIColor rootViewBackground];
 }
 
+-(NSDictionary*) dictionaryWithFormData;
+{
+    NSMutableDictionary* rv = [[NSMutableDictionary alloc] init];
+    NSEnumerator* k = [[self.root allElementKeys] objectEnumerator];
+
+    NSString* key = nil;
+    id obj;
+    QEntryElement* element = nil;
+
+    while (key = [k nextObject]) {
+        element = (QEntryElement*)[self.root elementWithKey:key];
+        if ([element isKindOfClass:[QDecimalElement class]]) {
+            float f = [(QDecimalElement*) element floatValue];
+            obj = [NSNumber numberWithFloat:f];
+            
+        } else if ([element isKindOfClass:[QDateTimeInlineElement class]]) {
+            obj = [(QDateTimeInlineElement*) element dateValue];
+            
+        } else if ([element isKindOfClass: [QEntryElement class]] ||
+                   [element isKindOfClass: [QAutoEntryElement class]]) {
+            obj = [element textValue];
+            
+        } else {
+            obj = [element value];
+        }
+        if (obj) {
+            [rv setObject:obj forKey:key];
+        }
+    }
+    return rv;
+}
+
 - (void) addReportToHistory:(WSHReport*)report
 {
     if (self.maintainHistory) {
