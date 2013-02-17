@@ -1,8 +1,3 @@
-//
-//  WSHR10FormViewController.h
-//  WSH Tool Box
-//
-//  Created by Oliver Bartley on 2/13/13.
 //  Copyright 2013 Oliver Bartley - http://brtly.net
 //
 //  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -16,9 +11,3 @@
 //  permissions and limitations under the License.
 //
 
-
-#import "WSHFormViewController.h"
-
-@interface WSHR10FormViewController : WSHFormViewController
-
-@end

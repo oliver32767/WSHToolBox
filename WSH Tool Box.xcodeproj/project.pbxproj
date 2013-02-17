@@ -166,6 +166,8 @@
 		4055AC8016CFA63C00A14763 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4055AC8416D04DE400A14763 /* WSHPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSHPreferences.h; sourceTree = "<group>"; };
 		4055AC8516D04DE500A14763 /* WSHPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSHPreferences.m; sourceTree = "<group>"; };
+		4055AC9816D0A01A00A14763 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		4055AC9916D0A01A00A14763 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		4070BFD816CC8F5C00BF46C5 /* WSH Tool Box.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WSH Tool Box.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4070BFDC16CC8F5C00BF46C5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4070BFDE16CC8F5C00BF46C5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -346,6 +348,8 @@
 		4070BFCD16CC8F5C00BF46C5 = {
 			isa = PBXGroup;
 			children = (
+				4055AC9816D0A01A00A14763 /* LICENSE */,
+				4055AC9916D0A01A00A14763 /* README.md */,
 				4023885F16CF7B2E00314BCF /* Icon@2x.png */,
 				4023885D16CF7B2500314BCF /* Icon.png */,
 				4023880E16CF29EB00314BCF /* libz.dylib */,
