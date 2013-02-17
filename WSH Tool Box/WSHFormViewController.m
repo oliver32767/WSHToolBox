@@ -67,7 +67,7 @@
     self.quickDialogTableView.backgroundColor = [UIColor rootViewBackground];
 }
 
--(NSDictionary*) dictionaryWithFormData;
+-(NSDictionary*) formData;
 {
     NSMutableDictionary* rv = [[NSMutableDictionary alloc] init];
     NSEnumerator* k = [[self.root allElementKeys] objectEnumerator];

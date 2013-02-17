@@ -32,7 +32,7 @@
 
     NSString* archiveKey = @"testHistorySource";
     
-    [WSHPreferences removeArchiveWithKey:archiveKey];
+    [WSHPreferences removeFormDataArchiveForKey:archiveKey];
     
     WSHHistorySource* hist = [[WSHHistorySource alloc] init];
     
@@ -49,9 +49,9 @@
     
     [hist addForm:form];
 
-    [WSHPreferences setArchive:[hist archive] forKey:archiveKey];
+    [WSHPreferences setFormDataArchive:[hist archive] forKey:archiveKey];
     
-    hist = [[WSHHistorySource alloc] initWithArchive:[WSHPreferences archiveWithKey:archiveKey]];
+    hist = [[WSHHistorySource alloc] initWithArchive:[WSHPreferences formDataArchiveWithKey:archiveKey]];
     form = [hist formAtIndex:0];
     
     NSAssert(([[form objectForKey:@"date"] isEqualToDate:d]), @"Dates don't match!");

@@ -232,6 +232,10 @@
                     break;
                 case 1:
                     [WSHPreferences resetAllPreferences];
+                    [self.tableView selectRowAtIndexPath:self.selectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+                    [appDelegate.viewController showCenterPanelAnimated:YES];
+                    return;
+                    break;
             }
     }
     

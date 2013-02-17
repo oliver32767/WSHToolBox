@@ -21,17 +21,29 @@
 
 @interface WSHPreferences : NSObject
 
+// this should only ever be used in debug mode
 +(void) resetAllPreferences;
 
-+(NSString*) defaultUserName;
-+(void) setDefaultUserName:(NSString*) defaultUserName;
++(BOOL) shouldSaveFormDataHistory;
++(void) setShouldSaveFormDataHistory:(BOOL)value;
 
-+(NSArray*) chemicalNameAutocompleteValues;
-+(void) removeAllChemicalNameAutocompleteValues;
-+(void) addChemicalNameAutocompleteValue: (NSString*)value;
++(BOOL) shouldSaveFieldValueHistory;
++(void) setShouldSaveFieldValueHistory:(BOOL)value;
 
-+(NSData*) archiveWithKey:(id)key;
-+(void) setArchive:(NSData*)archive forKey:(id)key;
-+(void) removeArchiveWithKey:(id)key;
++(NSString*) defaultFieldValueWithKey:(id)key;
++(void) setDefaultFieldValue:(id)value forKey:(id<NSCopying>)key;
++(void) removeDefaultFieldValueForKey:(id)key;
++(NSArray*) allDefaultFieldValueKeys;
+
++(NSArray*) autocompleteValuesWithKey:(id)key;
++(void) addAutocompleteValue:(NSString*)value forValuesWithKey:(id<NSCopying>)key;
++(void) setAutoCompleteValues:(NSArray*)values forKey:(id<NSCopying>)key;
++(void) removeAutocompleteValuesWithKey:(id)key;
++(NSArray*) allAutocompleteValuesKeys;
+
++(NSData*) formDataArchiveWithKey:(id)key;
++(void) setFormDataArchive:(NSData*)archive forKey:(id<NSCopying>)key;
++(void) removeFormDataArchiveForKey:(id)key;
++(NSArray*) allFormDataArchiveKeys;
 
 @end

@@ -22,6 +22,7 @@
 #import "JASidePanelController.h"
 #import "WSHR10FormViewController.h"
 #import "WSHAboutViewController.h"
+#import "WSHPreferences.h"
 
 @implementation WSHAppDelegate
 

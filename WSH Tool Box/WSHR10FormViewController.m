@@ -36,7 +36,7 @@
     
     QSection *generalInfo = [[QSection alloc] initWithTitle:@"General Information"];
     
-    QEntryElement* name = [[QEntryElement alloc] initWithTitle:@"Name" Value:[WSHPreferences defaultUserName] Placeholder:nil];
+    QEntryElement* name = [[QEntryElement alloc] initWithTitle:@"Name" Value:[WSHPreferences defaultFieldValueWithKey:@"name"] Placeholder:nil];
     [name setKey:@"name"];
     [name setAutocapitalizationType:UITextAutocapitalizationTypeWords];
     QEntryElement* location = [[QEntryElement alloc] initWithTitle:@"Location" Value:nil];
@@ -55,7 +55,7 @@
     //QEntryElement* chemicalName = [[QEntryElement alloc] initWithTitle:@"Chemical Name" Value:nil];
     QAutoEntryElement* chemicalName = [[QAutoEntryElement alloc] initWithTitle:@"Chemical Name" Value:nil Placeholder:nil];
     [chemicalName setKey:@"chemicalName"];
-    [chemicalName setAutoCompleteValues:[WSHPreferences chemicalNameAutocompleteValues]];
+    [chemicalName setAutoCompleteValues:[WSHPreferences autocompleteValuesWithKey:@"chemicalName"]];
 
     [chemicalName setAutoCompleteColor:[UIColor autocompleteColor]];
     
@@ -89,13 +89,13 @@
 
 - (void) onCalculate
 {
-    WSHR10Report* report = [[WSHR10Report alloc] initWithFormData:[self dictionaryWithFormData]];
+    WSHR10Report* report = [[WSHR10Report alloc] initWithFormData:[self formData]];
     if ([report.formData objectForKey:@"name"]) {
-        [WSHPreferences setDefaultUserName:[report.formData objectForKey:@"name"]];
+        [WSHPreferences setDefaultFieldValue:[report.formData objectForKey:@"name"] forKey:@"name"];
     }
     
     if ([report.formData objectForKey:@"chemicalName"]) {
-        [WSHPreferences addChemicalNameAutocompleteValue:[report.formData objectForKey:@"chemicalName"]];
+        [WSHPreferences addAutocompleteValue:[report.formData objectForKey:@"chemicalName"] forValuesWithKey:@"chemicalName"];
     }
     
     [report setTitle:@"Rule of Ten"];

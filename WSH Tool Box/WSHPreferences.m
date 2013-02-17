@@ -19,103 +19,149 @@
 
 #import "WSHPreferences.h"
 
-#define UNIQUE_KEY @"%@-e60aa12974616d86cca6a565a794b6ea" // this is the MD5 for Linux Mint Debian Edition 201204 Xfce 64-bit :)
+#define UNIQUE_KEY @"%e60aa12974616d86cca6a565a794b6ea" // this is the MD5 for Linux Mint Debian Edition 201204 Xfce 64-bit :)
 
 @implementation WSHPreferences
 
-static WSHPreferences *singleton;
-static NSMutableArray* archiveKeys;
-
-+ (void)initialize
++(void) initialize
 {
-    static BOOL initialized = NO;
-    if(!initialized)
-    {
-        initialized = YES;
-        singleton = [[WSHPreferences alloc] init];
-        archiveKeys = [[NSUserDefaults standardUserDefaults] objectForKey:[self unique:@"archiveKeys"]];
-        if (!archiveKeys) {
-            archiveKeys = [[NSMutableArray alloc] init];
-        }
-        NSLog(@"Initialized archiveKeys:%@", archiveKeys);
-
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:UNIQUE_KEY]) {
+        [self resetAllPreferences];
     }
-}
-
-+(NSString*) unique:(id)key
-{
-    return [NSString stringWithFormat:UNIQUE_KEY, key];
 }
 
 +(void) resetAllPreferences
 {
     NSLog(@"Resetting preferences!");
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"defaultUsername"];
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"chemicalNameAutocompleteValues"];
-    [self removeAllArchives];
-}
-
-+(NSString*) defaultUserName
-{
-    NSString* rv = [[NSUserDefaults standardUserDefaults] stringForKey:@"defaultUsername"];
-    return rv;
-}
-
-+(void) setDefaultUserName:(NSString *)defaultUserName
-{
-    [[NSUserDefaults standardUserDefaults] setObject:defaultUserName forKey:@"defaultUsername"];
-}
-
-+(NSArray*) chemicalNameAutocompleteValues
-{
-    NSArray* rv = [[NSUserDefaults standardUserDefaults] arrayForKey:@"chemicalNameAutocompleteValues"];
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     
-    return rv;
+    [self setShouldSaveFieldValueHistory:YES];
+    [self setShouldSaveFormDataHistory:YES];
 }
-+(void) removeAllChemicalNameAutocompleteValues
+
++(BOOL) shouldSaveFormDataHistory
 {
-    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"chemicalNameAutocompleteValues"];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldSaveFormDataHistory"];
 }
-+(void) addChemicalNameAutocompleteValue: (NSString*)value
++(void) setShouldSaveFormDataHistory:(BOOL)value{
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"shouldSaveFormDataHistory"];
+}
+
++(BOOL) shouldSaveFieldValueHistory
 {
-    if (![[[NSUserDefaults standardUserDefaults] arrayForKey:@"chemicalNameAutocompleteValues"] containsObject:value]) {
-        NSMutableArray* arr = [NSMutableArray arrayWithArray:[self chemicalNameAutocompleteValues]];
-        [arr addObject:value];
-        [[NSUserDefaults standardUserDefaults] setObject:arr forKey:@"chemicalNameAutocompleteValues"];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldSaveFieldValueHistory"];
+}
++(void) setShouldSaveFieldValueHistory:(BOOL)value
+{
+    [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"shouldSaveFieldValueHistory"];
+}
+
+#pragma mark field values
+
++(NSString*) defaultFieldValueWithKey:(id)key
+{
+    NSDictionary* values = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultFieldValues"];
+    return [values objectForKey:key];
+}
++(void) setDefaultFieldValue:(id)value forKey:(id<NSCopying>)key
+{
+    if (![self shouldSaveFieldValueHistory]) return;
+    
+    NSMutableDictionary* values = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultFieldValues"];
+    if (!values) {
+        values = [[NSMutableDictionary alloc] init];
     }
+    [values setObject:value forKey:key];
+    [[NSUserDefaults standardUserDefaults] setObject:values forKey:@"defaultFieldValues"];
+}
++(void) removeDefaultFieldValueForKey:(id)key
+{
+    NSMutableDictionary* values = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultFieldValues"];
+    [values removeObjectForKey:key];
+    [[NSUserDefaults standardUserDefaults] setObject:values forKey:@"defaultFieldValues"];
+}
++(NSArray*) allDefaultFieldValueKeys
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"defaultFieldValues"] allKeys];
 }
 
+#pragma mark autocomplete
 
-+(NSData*) archiveWithKey:(id)key
++(NSArray*) autocompleteValuesWithKey:(id<NSCopying>)key
 {
-    return [[NSUserDefaults standardUserDefaults] dataForKey: [self unique:key]];
+    NSDictionary* values = [[NSUserDefaults standardUserDefaults] objectForKey:@"autocompleteValues"];
+    return [values objectForKey:key];
+}
++(void) addAutocompleteValue:(NSString*)value forValuesWithKey:(id<NSCopying>)key
+{
+    if (![self shouldSaveFieldValueHistory]) return;
+    
+    NSMutableArray* values = [NSMutableArray arrayWithArray:[self autocompleteValuesWithKey:key]];
+    if (!values) {
+        values = [[NSMutableArray alloc] init];
+    }
+    [values addObject:value];
+    [self setAutoCompleteValues:values forKey:key];
+}
++(void) setAutoCompleteValues:(NSArray*)values forKey:(id<NSCopying>)key
+{
+    if (![self shouldSaveFieldValueHistory]) return;
+    
+    NSMutableDictionary* autocompleteValues = [[NSUserDefaults standardUserDefaults] objectForKey:@"autocompleteValues"];
+    if (!autocompleteValues) {
+        autocompleteValues = [[NSMutableDictionary alloc] init];
+    }
+    [autocompleteValues setObject:values forKey:key];
+    [[NSUserDefaults standardUserDefaults] setObject:autocompleteValues forKey:@"autocompleteValues"];
     
 }
-+(void) setArchive:(NSData*)archive forKey:(id)key;
++(void) removeAutocompleteValuesWithKey:(id)key
 {
-    [[NSUserDefaults standardUserDefaults] setObject:archive forKey:[self unique:key]];
-    [archiveKeys addObject:[self unique:key]];
-    [self saveArchiveKeys];
-
+    NSMutableDictionary* autocompleteValues = [[NSUserDefaults standardUserDefaults] objectForKey:@"autocompleteValues"];
+    [autocompleteValues removeObjectForKey:key];
+    [[NSUserDefaults standardUserDefaults] setObject:autocompleteValues forKey:@"autocompleteValues"];
 }
-+(void) removeArchiveWithKey:(id)key
++(void) removeAllAutocompleteValues
 {
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:[self unique:key]];
-    [archiveKeys removeObject:[self unique:key]];
-    [self saveArchiveKeys];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"autocompleteValues"];
+}
++(NSArray*) allAutocompleteValuesKeys
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"autocompleteValues"] allKeys];
+}
+
+#pragma mark form data archive
+
++(NSData*) formDataArchiveWithKey:(id)key
+{
+    NSMutableDictionary* archives = [[NSUserDefaults standardUserDefaults] objectForKey:@"archives"];
+    return [archives objectForKey:key];
+}
++(void) setFormDataArchive:(NSData *)archive forKey:(id)key
+{
+    if (![self shouldSaveFormDataHistory]) return;
+    
+    NSMutableDictionary* archives = [[NSUserDefaults standardUserDefaults] objectForKey:@"archives"];
+    if (!archives) {
+        archives = [[NSMutableDictionary alloc] init];
+    }
+    [archives setObject:archive forKey:key];
+    [[NSUserDefaults standardUserDefaults] setObject:archives forKey:@"archives"];
+}
++(void) removeFormDataArchiveForKey:(id)key
+{
+    NSMutableDictionary* archives = [[NSUserDefaults standardUserDefaults] objectForKey:@"archives"];
+    [archives removeObjectForKey:key];
+    [[NSUserDefaults standardUserDefaults] setObject:archives forKey:@"archives"];
 }
 +(void) removeAllArchives
 {
-    for (id key in archiveKeys) {
-        [self removeArchiveWithKey:key];
-        [archiveKeys removeObject:key];
-    }
-    [self saveArchiveKeys];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"archives"];
 }
-+(void) saveArchiveKeys
++(NSArray*) allFormDataArchiveKeys
 {
-    [[NSUserDefaults standardUserDefaults] setObject:archiveKeys forKey:[self unique:@"archiveKeys"]];
-    NSLog(@"archiveKeys:%@", archiveKeys);
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"archives"] allKeys];
 }
 
 @end

@@ -54,12 +54,12 @@
     root.grouped = YES;
     root.title = @"Rule of Ten";
     
-    QEntryElement* name = [[QEntryElement alloc] initWithTitle:@"Name" Value:[WSHPreferences defaultUserName] Placeholder:nil];
+    QEntryElement* name = [[QEntryElement alloc] initWithTitle:@"Name" Value:[WSHPreferences defaultFieldValueWithKey:@"name"] Placeholder:nil];
     [name setKey:@"name"];
 
     QSection* first = [[QSection alloc] initWithTitle:@"Inputs"];
     QAutoEntryElement* autocomplete = [[QAutoEntryElement alloc] initWithTitle:@"Autocomplete" Value:nil Placeholder:@"start typing for suggestions"];
-    [autocomplete setAutoCompleteValues:[WSHPreferences chemicalNameAutocompleteValues]];
+    [autocomplete setAutoCompleteValues:[WSHPreferences autocompleteValuesWithKey:@"chemicalName"]];
     [autocomplete setKey:@"autocomplete"];
 
     QDateTimeInlineElement* date = [[QDateTimeInlineElement alloc] initWithTitle:@"Date & Time" date:[NSDate date]];
@@ -88,8 +88,7 @@
 
 - (void) onCalculate
 {
-    WSHDebugReport* report = [[WSHDebugReport alloc] initWithFormData:[self dictionaryWithFormData]];
-    [WSHPreferences setDefaultUserName:[report.formData objectForKey:@"name"]];
+    WSHDebugReport* report = [[WSHDebugReport alloc] initWithFormData:[self formData]];
     [self showHtmlReport:report];
 //    WSHHtmlReportViewController* reportViewController = [[WSHHtmlReportViewController alloc] initWithNibName:@"WSHHtmlReportViewController" bundle:nil];
 //    reportViewController.report = report;
