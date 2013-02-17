@@ -96,7 +96,8 @@
                 NSDate* date = [(QDateTimeInlineElement*) element dateValue];
                 [self setObject:[self.dateFormatter stringFromDate:date] forKey:key];
                 
-            } else if ([element isKindOfClass: [QEntryElement class]]) {
+            } else if ([element isKindOfClass: [QEntryElement class]] ||
+                       [element isKindOfClass: [QAutoEntryElement class]]) {
                 [self setObject:[element textValue] forKey:key];
                 
             } else {

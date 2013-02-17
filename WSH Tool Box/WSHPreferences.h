@@ -24,4 +24,10 @@
 +(NSString*) defaultUserName;
 +(void) setDefaultUserName:(NSString*) defaultUserName;
 
++(NSArray*) chemicalNameAutocompleteValues;
++(void) removeAllChemicalNameAutocompleteValues;
++(void) addChemicalNameAutocompleteValue: (NSString*)value;
+
++(void) resetAllPreferences;
+
 @end

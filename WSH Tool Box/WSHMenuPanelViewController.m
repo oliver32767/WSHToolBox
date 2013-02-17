@@ -24,6 +24,7 @@
 #import "WSHFeedbackViewController.h"
 #import "WSHAppDelegate.h"
 #import "JASidePanelController.h"
+#import "WSHPreferences.h"
 
 @interface WSHMenuPanelViewController ()
 
@@ -110,12 +111,12 @@
             return 1;
         case 1:
 #ifdef TESTING
-            return 2;
+            return 2; // about + feedback
 #else
-            return 1; // hide the Feedback row
+            return 1; // about only
 #endif
         case 2:
-            return 1;
+            return 2; // this only gets hit if debug is true
     }
     return 0;
 }
@@ -171,7 +172,10 @@
         case 2:
             switch (indexPath.row) {
                 case 0:
-                    text = @"Debug";
+                    text = @"Debug Report";
+                    break;
+                case 1:
+                    text = @"Reset Preferences";
                     break;
             }
     }
@@ -226,6 +230,8 @@
                 case 0:
                     appDelegate.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[WSHDebugFormViewController alloc] init]];
                     break;
+                case 1:
+                    [WSHPreferences resetAllPreferences];
             }
     }
     

@@ -21,6 +21,12 @@
 
 @implementation WSHPreferences
 
++(void) resetAllPreferences
+{
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"defaultUsername"];
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"chemicalNameAutocompleteValues"];
+}
+
 +(NSString*) defaultUserName
 {
     NSString* rv = [[NSUserDefaults standardUserDefaults] stringForKey:@"defaultUsername"];
@@ -31,5 +37,26 @@
 {
     [[NSUserDefaults standardUserDefaults] setObject:defaultUserName forKey:@"defaultUsername"];
 }
+
++(NSArray*) chemicalNameAutocompleteValues
+{
+    NSArray* rv = [[NSUserDefaults standardUserDefaults] arrayForKey:@"chemicalNameAutocompleteValues"];
+    
+    return rv;
+}
++(void) removeAllChemicalNameAutocompleteValues
+{
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"chemicalNameAutocompleteValues"];
+}
++(void) addChemicalNameAutocompleteValue: (NSString*)value
+{
+    if (![[[NSUserDefaults standardUserDefaults] arrayForKey:@"chemicalNameAutocompleteValues"] containsObject:value]) {
+        NSMutableArray* arr = [NSMutableArray arrayWithArray:[self chemicalNameAutocompleteValues]];
+        [arr addObject:value];
+        [[NSUserDefaults standardUserDefaults] setObject:arr forKey:@"chemicalNameAutocompleteValues"];
+    }
+}
+
+
 
 @end

@@ -136,4 +136,9 @@
 {
     return [UIColor lightGrayColor];
 }
+
++(UIColor*) autocompleteColor
+{
+    return [UIColor lightGrayColor];
+}
 @end

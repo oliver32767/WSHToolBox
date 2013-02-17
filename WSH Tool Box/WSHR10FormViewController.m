@@ -29,7 +29,6 @@
 
 @implementation WSHR10FormViewController
 
-
 - (QRootElement*)createRootElement {
     QRootElement* root = [[QRootElement alloc] init];
     root.grouped = YES;
@@ -52,8 +51,13 @@
     
     QSection *chemicalInfo = [[QSection alloc] initWithTitle:@"Chemical Information"];
     
-    QEntryElement* chemicalName = [[QEntryElement alloc] initWithTitle:@"Chemical Name" Value:nil];
+    //QEntryElement* chemicalName = [[QEntryElement alloc] initWithTitle:@"Chemical Name" Value:nil];
+    QAutoEntryElement* chemicalName = [[QAutoEntryElement alloc] initWithTitle:@"Chemical Name" Value:nil Placeholder:nil];
     [chemicalName setKey:@"chemicalName"];
+    [chemicalName setAutoCompleteValues:[WSHPreferences chemicalNameAutocompleteValues]];
+
+    [chemicalName setAutoCompleteColor:[UIColor autocompleteColor]];
+    
     QDecimalElement* vaporPressure = [[QDecimalElement alloc] initWithTitle:@"Vapor Pressure" value:0];
     [vaporPressure setKey:@"vaporPressure"];
     [vaporPressure setFractionDigits:1];
@@ -85,9 +89,15 @@
 - (void) onCalculate
 {
     WSHR10Report* report = [[WSHR10Report alloc] initWithRootElement:self.root];
-    [WSHPreferences setDefaultUserName:[report objectForKey:@"name"]];
+    if ([report objectForKey:@"name"]) {
+        [WSHPreferences setDefaultUserName:[report objectForKey:@"name"]];
+    }
+    
+    if ([report objectForKey:@"chemicalName"]) {
+        [WSHPreferences addChemicalNameAutocompleteValue:[report objectForKey:@"chemicalName"]];
+    }
+    
     [report setTitle:@"Rule of Ten"];
-//    [report setSubtitle: [report.dateFormatter stringFromDate:(NSDate*)[report objectForKey:@"date"]]];
     [self showHtmlReport:report];
 
 }

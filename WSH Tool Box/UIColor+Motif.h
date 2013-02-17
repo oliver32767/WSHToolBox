@@ -37,7 +37,7 @@
 +(UIColor*) menuButtonSelectedBorder;
 +(UIColor*) menuButtonSelectedTextColor;
 
-
++(UIColor*) autocompleteColor;
 
 
 @end

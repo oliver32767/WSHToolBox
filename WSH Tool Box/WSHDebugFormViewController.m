@@ -53,51 +53,13 @@
     QRootElement* root = [[QRootElement alloc] init];
     root.grouped = YES;
     root.title = @"Rule of Ten";
-    
-    QSection *generalInfo = [[QSection alloc] initWithTitle:@"General Information"];
-    
-    QEntryElement* name = [[QEntryElement alloc] initWithTitle:@"Name" Value:[WSHPreferences defaultUserName] Placeholder:nil];
-    [name setKey:@"name"];
-    QEntryElement* location = [[QEntryElement alloc] initWithTitle:@"Location" Value:nil];
-    [location setKey:@"location"];
-    QDateTimeInlineElement* date = [[QDateTimeInlineElement alloc] initWithTitle:@"Date & Time" date:[NSDate date]];
-    [date setKey:@"date"];
-    
-    [generalInfo addElement:name];
-    [generalInfo addElement:location];
-    [generalInfo addElement:date];
-    
-    [root addSection:generalInfo];
-    
-    QSection *chemicalInfo = [[QSection alloc] initWithTitle:@"Chemical Information"];
-    
-    QEntryElement* chemicalName = [[QEntryElement alloc] initWithTitle:@"Chemical Name" Value:nil];
-    [chemicalName setKey:@"chemicalName"];
-    QDecimalElement* vaporPressure = [[QDecimalElement alloc] initWithTitle:@"Vapor Pressure" value:0];
-    [vaporPressure setKey:@"vaporPressure"];
-    [vaporPressure setFractionDigits:1];
-    QDecimalElement* exposureLimit = [[QDecimalElement alloc] initWithTitle:@"Exposure Limit" value:0];
-    [exposureLimit setKey:@"exposureLimit"];
-    QDecimalElement* stel = [[QDecimalElement alloc] initWithTitle:@"STEL" value:0];
-    [stel setKey:@"stel"];
-    QDecimalElement* ceiling = [[QDecimalElement alloc] initWithTitle:@"Ceiling" value:2];
-    [ceiling setKey:@"ceiling"];
-    
-    [chemicalInfo addElement:chemicalName];
-    [chemicalInfo addElement:vaporPressure];
-    [chemicalInfo addElement:exposureLimit];
-    [chemicalInfo addElement:stel];
-    [chemicalInfo addElement:ceiling];
-    
-    [root addSection:chemicalInfo];
-    
-    QSection* actions = [[QSection alloc] init];
-    QButtonElement* calculate = [[QButtonElement alloc] initWithTitle:@"Calculate"];
-    calculate.controllerAction = @"onCalculate";
-    [actions addElement:calculate];
-    
-    [root addSection:actions];
-    
+
+    QSection* first = [[QSection alloc] initWithTitle:@"First"];
+    QAutoEntryElement* autocomplete = [[QAutoEntryElement alloc] initWithTitle:@"Autocomplete" Value:nil Placeholder:@"start typing for suggestions"];
+    [autocomplete setAutoCompleteValues:[WSHPreferences chemicalNameAutocompleteValues]];
+    [autocomplete setKey:@"autocomplete"];
+    [first addElement:autocomplete];
+    [root addSection:first];
     return root;
 }
 
