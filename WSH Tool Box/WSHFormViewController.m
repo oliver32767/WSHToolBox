@@ -33,7 +33,7 @@
 {
     self = [super init];
     if (self) {
-        self.maintainHistory = NO;
+        self.maintainHistory = YES;
         [TestFlight passCheckpoint:[NSString stringWithFormat:@"Form initialized"]];
         return [super initWithRoot:[self createRootElement]];
     }
@@ -116,6 +116,7 @@
 - (void) onHistory
 {
     if (self.maintainHistory) {
+        [TestFlight passCheckpoint:[NSString stringWithFormat:@"Viewed history: %@", self.title]];
         WSHHistoryViewController* historyViewController = [[WSHHistoryViewController alloc] init];
         [self.navigationController pushViewController:historyViewController animated:YES];
     }

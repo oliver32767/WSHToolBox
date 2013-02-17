@@ -41,37 +41,16 @@
          [NSDateFormatter dateFormatFromTemplate:DEFAULT_DATE_TEMPLATE options:0
                                           locale:[NSLocale currentLocale]]];
         self.floatFormat = DEFAULT_FLOAT_FORMAT;
-        self.formData = [[NSMutableDictionary alloc] init];
+        _formData = [[WSHFormData alloc] init];
     }
     return self;
 }
 
--(id)initWithTitle:(NSString *)title
-{
-    self = [super init];
-    if (self) {
-        self.formData = [[NSMutableDictionary alloc] init];
-        self = [self initWithTitle:title andSubtitle:nil];
-    }
-    return self;
-}
-
--(id)initWithTitle:(NSString *)title andSubtitle:(NSString *)subtitle
+- (id)initWithFormData:(WSHFormData *)data
 {
     self = [self init];
     if (self) {
-        [self setTitle:title];
-        [self setSubtitle:subtitle];
-        self.formData = [[NSMutableDictionary alloc] init];
-    }
-    return self;
-}
-
-- (id)initWithFormData:(NSDictionary *)data
-{
-    self = [self init];
-    if (self) {
-        self.formData = [[NSMutableDictionary alloc] initWithDictionary:data];
+        _formData = data;
     }
     return self;
 }
@@ -116,33 +95,6 @@
     return YES;
 }
 
-//- (void)setObject:(id)anObject forKey:(id < NSCopying >)aKey
-//{
-//    if (!anObject) {
-//        [_data setObject:@"" forKey:aKey];
-//    } else {
-//        [_data setObject:anObject forKey:aKey];
-//    }
-//
-//}
-//- (void)removeObjectForKey:(id)aKey
-//{
-//    [_data removeObjectForKey:aKey];
-//}
-//
-//- (NSUInteger)count
-//{
-//    return _data.count;
-//}
-//- (id)objectForKey:(id)aKey
-//{
-//    return [_data objectForKey:aKey];
-//}
-//- (NSArray*) allKeys
-//{
-//    return _data.allKeys;
-//}
-
 - (NSDictionary*) dictionaryWithStringsForObjects
 {
     NSMutableDictionary* rv = [[NSMutableDictionary alloc] init];
@@ -164,6 +116,7 @@
     }
     return [obj description];
 }
+
 
 -(NSString*) description
 {

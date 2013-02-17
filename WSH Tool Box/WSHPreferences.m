@@ -19,12 +19,40 @@
 
 #import "WSHPreferences.h"
 
+#define UNIQUE_KEY @"%@-e60aa12974616d86cca6a565a794b6ea" // this is the MD5 for Linux Mint Debian Edition 201204 Xfce 64-bit :)
+
 @implementation WSHPreferences
+
+static WSHPreferences *singleton;
+static NSMutableArray* archiveKeys;
+
++ (void)initialize
+{
+    static BOOL initialized = NO;
+    if(!initialized)
+    {
+        initialized = YES;
+        singleton = [[WSHPreferences alloc] init];
+        archiveKeys = [[NSUserDefaults standardUserDefaults] objectForKey:[self unique:@"archiveKeys"]];
+        if (!archiveKeys) {
+            archiveKeys = [[NSMutableArray alloc] init];
+        }
+        NSLog(@"Initialized archiveKeys:%@", archiveKeys);
+
+    }
+}
+
++(NSString*) unique:(id)key
+{
+    return [NSString stringWithFormat:UNIQUE_KEY, key];
+}
 
 +(void) resetAllPreferences
 {
+    NSLog(@"Resetting preferences!");
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"defaultUsername"];
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"chemicalNameAutocompleteValues"];
+    [self removeAllArchives];
 }
 
 +(NSString*) defaultUserName
@@ -58,5 +86,36 @@
 }
 
 
++(NSData*) archiveWithKey:(id)key
+{
+    return [[NSUserDefaults standardUserDefaults] dataForKey: [self unique:key]];
+    
+}
++(void) setArchive:(NSData*)archive forKey:(id)key;
+{
+    [[NSUserDefaults standardUserDefaults] setObject:archive forKey:[self unique:key]];
+    [archiveKeys addObject:[self unique:key]];
+    [self saveArchiveKeys];
+
+}
++(void) removeArchiveWithKey:(id)key
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:[self unique:key]];
+    [archiveKeys removeObject:[self unique:key]];
+    [self saveArchiveKeys];
+}
++(void) removeAllArchives
+{
+    for (id key in archiveKeys) {
+        [self removeArchiveWithKey:key];
+        [archiveKeys removeObject:key];
+    }
+    [self saveArchiveKeys];
+}
++(void) saveArchiveKeys
+{
+    [[NSUserDefaults standardUserDefaults] setObject:archiveKeys forKey:[self unique:@"archiveKeys"]];
+    NSLog(@"archiveKeys:%@", archiveKeys);
+}
 
 @end

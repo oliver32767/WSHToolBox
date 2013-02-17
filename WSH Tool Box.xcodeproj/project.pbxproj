@@ -52,6 +52,8 @@
 		4055AC8216CFA63C00A14763 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4055AC7F16CFA63C00A14763 /* Default.png */; };
 		4055AC8316CFA63C00A14763 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4055AC8016CFA63C00A14763 /* Default@2x.png */; };
 		4055AC8616D04DE500A14763 /* WSHPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 4055AC8516D04DE500A14763 /* WSHPreferences.m */; };
+		4055ACA916D0C4EC00A14763 /* libQuickDialog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4070C01D16CC8FF100BF46C5 /* libQuickDialog.a */; };
+		4055ACAF16D0DA2400A14763 /* WSHFormData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4055ACAE16D0DA2400A14763 /* WSHFormData.m */; };
 		4070BFDD16CC8F5C00BF46C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4070BFDC16CC8F5C00BF46C5 /* UIKit.framework */; };
 		4070BFDF16CC8F5C00BF46C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4070BFDE16CC8F5C00BF46C5 /* Foundation.framework */; };
 		4070BFE116CC8F5C00BF46C5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4070BFE016CC8F5C00BF46C5 /* CoreGraphics.framework */; };
@@ -72,6 +74,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4055ACA716D0C4E100A14763 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4070C01116CC8FF100BF46C5 /* QuickDialog.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2C542392145ADEBD0026A152;
+			remoteInfo = QuickDialog;
+		};
 		4070BFFE16CC8F5D00BF46C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4070BFCF16CC8F5C00BF46C5 /* Project object */;
@@ -168,6 +177,8 @@
 		4055AC8516D04DE500A14763 /* WSHPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSHPreferences.m; sourceTree = "<group>"; };
 		4055AC9816D0A01A00A14763 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		4055AC9916D0A01A00A14763 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		4055ACAD16D0DA2300A14763 /* WSHFormData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSHFormData.h; sourceTree = "<group>"; };
+		4055ACAE16D0DA2400A14763 /* WSHFormData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSHFormData.m; sourceTree = "<group>"; };
 		4070BFD816CC8F5C00BF46C5 /* WSH Tool Box.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WSH Tool Box.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4070BFDC16CC8F5C00BF46C5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4070BFDE16CC8F5C00BF46C5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -216,6 +227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4055ACA916D0C4EC00A14763 /* libQuickDialog.a in Frameworks */,
 				4070BFFB16CC8F5D00BF46C5 /* SenTestingKit.framework in Frameworks */,
 				4070BFFC16CC8F5D00BF46C5 /* UIKit.framework in Frameworks */,
 				4070BFFD16CC8F5D00BF46C5 /* Foundation.framework in Frameworks */,
@@ -322,6 +334,8 @@
 				40391DA116CD5DCA000F0D55 /* WSHReport.m */,
 				40391DAA16CD887D000F0D55 /* WSHDebugReport.h */,
 				40391DAB16CD887D000F0D55 /* WSHDebugReport.m */,
+				4055ACAD16D0DA2300A14763 /* WSHFormData.h */,
+				4055ACAE16D0DA2400A14763 /* WSHFormData.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -490,6 +504,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4055ACA816D0C4E100A14763 /* PBXTargetDependency */,
 				4070BFFF16CC8F5D00BF46C5 /* PBXTargetDependency */,
 			);
 			name = "WSH Tool BoxTests";
@@ -634,6 +649,7 @@
 				4023881E16CF434800314BCF /* WSHFeedbackViewController.m in Sources */,
 				4023882816CF4D5D00314BCF /* UIColor+Motif.m in Sources */,
 				4055AC8616D04DE500A14763 /* WSHPreferences.m in Sources */,
+				4055ACAF16D0DA2400A14763 /* WSHFormData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,6 +664,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4055ACA816D0C4E100A14763 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QuickDialog;
+			targetProxy = 4055ACA716D0C4E100A14763 /* PBXContainerItemProxy */;
+		};
 		4070BFFF16CC8F5D00BF46C5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4070BFD716CC8F5C00BF46C5 /* WSH Tool Box */;
@@ -770,6 +791,7 @@
 		4070C00F16CC8F5D00BF46C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WSH Tool Box.app/WSH Tool Box";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
@@ -778,8 +800,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WSH Tool Box/WSH Tool Box-Prefix.pch";
 				INFOPLIST_FILE = "WSH Tool BoxTests/WSH Tool BoxTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/TestFlightSDK1.1\"";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/QuickDialog\"/**";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -787,6 +811,7 @@
 		4070C01016CC8F5D00BF46C5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WSH Tool Box.app/WSH Tool Box";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
@@ -795,8 +820,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WSH Tool Box/WSH Tool Box-Prefix.pch";
 				INFOPLIST_FILE = "WSH Tool BoxTests/WSH Tool BoxTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/TestFlightSDK1.1\"";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/QuickDialog\"/**";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;

@@ -7,6 +7,9 @@
 //
 
 #import "WSH_Tool_BoxTests.h"
+#import "WSHHistorySource.h"
+#import "WSHFormData.h"
+#import "WSHPreferences.h"
 
 @implementation WSH_Tool_BoxTests
 
@@ -24,9 +27,37 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testHistory
 {
-    STFail(@"Unit tests are not implemented yet in WSH Tool BoxTests");
+
+    NSString* archiveKey = @"testHistorySource";
+    
+    [WSHPreferences removeArchiveWithKey:archiveKey];
+    
+    WSHHistorySource* hist = [[WSHHistorySource alloc] init];
+    
+    
+    WSHFormData* form = [[WSHFormData alloc] init];
+    
+    NSDate* d = [NSDate date];
+    NSString* s = @"NSString";
+    NSNumber* f = [NSNumber numberWithFloat:327.67f];
+    
+    [form setObject:d forKey:@"date"];
+    [form setObject:s forKey:@"string"];
+    [form setObject:f forKey:@"float"];
+    
+    [hist addForm:form];
+
+    [WSHPreferences setArchive:[hist archive] forKey:archiveKey];
+    
+    hist = [[WSHHistorySource alloc] initWithArchive:[WSHPreferences archiveWithKey:archiveKey]];
+    form = [hist formAtIndex:0];
+    
+    NSAssert(([[form objectForKey:@"date"] isEqualToDate:d]), @"Dates don't match!");
+    NSAssert(([[form objectForKey:@"string"] isEqualToString:s]), @"Strings don't match");
+    NSAssert(([[form objectForKey:@"float"] floatValue] == [f floatValue]), @"Floats don't match!");
+
 }
 
 @end

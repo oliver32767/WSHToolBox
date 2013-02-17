@@ -22,18 +22,13 @@
 
 @interface WSHHistorySource : NSObject <UITableViewDataSource>
 
-@property NSString* path;
+-(id)init;
+-(id)initWithArchive:(NSData*)archive;
+-(NSData*)archive;
 
--(id) initWithContentsOfFile:(NSString*)path;
--(BOOL)writeToFile:(NSString *)path;
-
--(void) insertElement:(WSHReport*)element;
--(WSHReport*) elementAtIndex:(NSUInteger)index;
-
--(void) removeElementAtIndex:(NSUInteger)index;
--(void) removeAllElements;
-
--(NSUInteger) count;
-
+-(int)count;
+-(void)addForm:(WSHFormData*)form;
+-(WSHFormData*)formAtIndex:(NSUInteger) index;
+-(void)removeAllForms;
 
 @end

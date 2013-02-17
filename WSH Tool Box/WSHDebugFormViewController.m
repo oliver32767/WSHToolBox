@@ -53,13 +53,36 @@
     QRootElement* root = [[QRootElement alloc] init];
     root.grouped = YES;
     root.title = @"Rule of Ten";
+    
+    QEntryElement* name = [[QEntryElement alloc] initWithTitle:@"Name" Value:[WSHPreferences defaultUserName] Placeholder:nil];
+    [name setKey:@"name"];
 
-    QSection* first = [[QSection alloc] initWithTitle:@"First"];
+    QSection* first = [[QSection alloc] initWithTitle:@"Inputs"];
     QAutoEntryElement* autocomplete = [[QAutoEntryElement alloc] initWithTitle:@"Autocomplete" Value:nil Placeholder:@"start typing for suggestions"];
     [autocomplete setAutoCompleteValues:[WSHPreferences chemicalNameAutocompleteValues]];
     [autocomplete setKey:@"autocomplete"];
+
+    QDateTimeInlineElement* date = [[QDateTimeInlineElement alloc] initWithTitle:@"Date & Time" date:[NSDate date]];
+    [date setKey:@"date"];
+    
+    QDecimalElement* vaporPressure = [[QDecimalElement alloc] initWithTitle:@"Vapor Pressure" value:0];
+    [vaporPressure setKey:@"vaporPressure"];
+    [vaporPressure setFractionDigits:1];
+    
+    [first addElement:name];
     [first addElement:autocomplete];
+    [first addElement:date];
+    [first addElement:vaporPressure];
     [root addSection:first];
+    
+    
+    
+    QSection* actions = [[QSection alloc] init];
+    QButtonElement* calculate = [[QButtonElement alloc] initWithTitle:@"Calculate"];
+    calculate.controllerAction = @"onCalculate";
+    [actions addElement:calculate];
+    
+    [root addSection:actions];
     return root;
 }
 

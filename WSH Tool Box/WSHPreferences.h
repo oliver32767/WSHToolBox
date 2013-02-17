@@ -21,6 +21,8 @@
 
 @interface WSHPreferences : NSObject
 
++(void) resetAllPreferences;
+
 +(NSString*) defaultUserName;
 +(void) setDefaultUserName:(NSString*) defaultUserName;
 
@@ -28,6 +30,8 @@
 +(void) removeAllChemicalNameAutocompleteValues;
 +(void) addChemicalNameAutocompleteValue: (NSString*)value;
 
-+(void) resetAllPreferences;
++(NSData*) archiveWithKey:(id)key;
++(void) setArchive:(NSData*)archive forKey:(id)key;
++(void) removeArchiveWithKey:(id)key;
 
 @end

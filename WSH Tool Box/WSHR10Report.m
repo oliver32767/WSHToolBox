@@ -28,7 +28,7 @@
         return NO;
     }
     
-    float vaporPressure = [[self objectForKey:@"vaporPressure"] floatValue];
+    float vaporPressure = [[self.formData objectForKey:@"vaporPressure"] floatValue];
     
     float saturationConcentration = (vaporPressure/760) * pow(10,6);
     float confinedSpace = saturationConcentration * 0.1;
@@ -37,12 +37,12 @@
     float capture = saturationConcentration * 0.0001;
     float containment = saturationConcentration * 0.00001;
     
-    [self setObject:[NSNumber numberWithFloat:saturationConcentration] forKey:@"saturationConcentration"];
-    [self setObject:[NSNumber numberWithFloat:confinedSpace] forKey:@"confinedSpace"];
-    [self setObject:[NSNumber numberWithFloat:poor] forKey:@"poor"];
-    [self setObject:[NSNumber numberWithFloat:good] forKey:@"good"];
-    [self setObject:[NSNumber numberWithFloat:capture] forKey:@"capture"];
-    [self setObject:[NSNumber numberWithFloat:containment] forKey:@"containment"];
+    [self.formData setObject:[NSNumber numberWithFloat:saturationConcentration] forKey:@"saturationConcentration"];
+    [self.formData setObject:[NSNumber numberWithFloat:confinedSpace] forKey:@"confinedSpace"];
+    [self.formData setObject:[NSNumber numberWithFloat:poor] forKey:@"poor"];
+    [self.formData setObject:[NSNumber numberWithFloat:good] forKey:@"good"];
+    [self.formData setObject:[NSNumber numberWithFloat:capture] forKey:@"capture"];
+    [self.formData setObject:[NSNumber numberWithFloat:containment] forKey:@"containment"];
     
     return YES;
 }

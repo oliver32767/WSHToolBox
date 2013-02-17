@@ -21,42 +21,51 @@
 
 @interface WSHHistorySource ()
 
-@property NSMutableArray* data;
+@property NSMutableArray* forms;
 
 @end
 
 @implementation WSHHistorySource
 
--(id) initWithContentsOfFile:(NSString*)path
+-(id)init
 {
-    
+    self = [super init];
+    if (self) {
+        _forms = [[NSMutableArray alloc] init];
+    }
+    return self;
 }
--(BOOL)writeToFile:(NSString *)path
+-(id) initWithArchive:(NSData *)archive
 {
-    
+    self = [self init];
+    if (self) {
+        NSLog(@"Unarchiving");
+        _forms = [NSKeyedUnarchiver unarchiveObjectWithData:archive];
+    }
+    return self;
 }
-
--(void) insertElement:(WSHReport*)element
+-(NSData*)archive
 {
-    [_data insertObject:element atIndex:0];
-}
--(WSHReport*) elementAtIndex:(NSUInteger)index
-{
-    return [_data objectAtIndex:index];
-}
-
--(void) removeElementAtIndex:(NSUInteger)index
-{
-    [_data removeObjectAtIndex:index];
-}
--(void) removeAllElements
-{
-    [_data removeAllObjects];
+    NSLog(@"Archiving");
+    return [NSKeyedArchiver archivedDataWithRootObject:_forms];
 }
 
--(NSUInteger) count
+-(int)count
 {
-    return _data.count;
+    return _forms.count;
+}
+-(void)addForm:(WSHFormData*)form
+{
+    NSLog(@"Adding form");
+    [_forms addObject:form];
+}
+-(WSHFormData*)formAtIndex:(NSUInteger) index
+{
+    return [_forms objectAtIndex:index];
+}
+-(void)removeAllForms
+{
+    [_forms removeAllObjects];
 }
 
 @end

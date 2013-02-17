@@ -1,8 +1,8 @@
 //
-//  WSHReport.h
+//  WSHFormData.h
 //  WSH Tool Box
 //
-//  Created by Oliver Bartley on 2/14/13.
+//  Created by Oliver Bartley on 2/17/13.
 //  Copyright 2013 Oliver Bartley - http://brtly.net
 //
 //  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -16,27 +16,22 @@
 //  permissions and limitations under the License.
 //
 
-
 #import <Foundation/Foundation.h>
-#import "McTemplateRenderer.h"
-#import "WSHHtmlReporting.h"
-#import "WSHFormData.h"
 
-@interface WSHReport : NSObject <WSHHtmlReporting>
+@interface WSHFormData : NSObject <NSCoding>
 
-@property (copy) NSDateFormatter* dateFormatter;
-@property NSString* floatFormat;
 
-@property (readonly) WSHFormData* formData;
+-(id)initWithCoder:(NSCoder *)aDecoder;
+-(void)encodeWithCoder:(NSCoder *)aCoder;
 
-@property NSString* title;
-@property NSString* subtitle;
+- (void)setObject:(id)anObject forKey:(id < NSCopying >)aKey;
+- (id)objectForKey:(id)aKey;
+- (void)removeObjectForKey:(id)aKey;
 
--(id)initWithFormData:(WSHFormData*)data;
+- (NSUInteger)count;
 
--(NSDictionary*) dictionaryWithStringsForObjects;
--(NSString*) stringForObject:(id)obj withKey:(id)key;
+- (NSArray *)allKeys;
 
--(BOOL)validateData:(NSError**)err;
+
 
 @end
