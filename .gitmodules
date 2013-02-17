@@ -1,0 +1,6 @@
+[submodule "QuickDialog"]
+	path = QuickDialog
+	url = git@github.com:escoz/QuickDialog.git
+[submodule "JASidePanels"]
+	path = JASidePanels
+	url = git@github.com:gotosleep/JASidePanels
