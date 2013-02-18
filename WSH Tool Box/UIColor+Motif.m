@@ -105,8 +105,8 @@
 +(UIColor*) menuButtonSelectedBackground
 {
 //     return [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav-bar-textured.png"]];
-    return [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.75f];
-//    return [UIColor colorWithHexString:@"cc0b1d2c"];
+//    return [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.75f];
+    return [UIColor colorWithHexString:@"cc0b1d2c"];
 
 }
 
