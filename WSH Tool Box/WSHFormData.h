@@ -32,6 +32,6 @@
 
 - (NSArray *)allKeys;
 
-
+-(int) version;
 
 @end

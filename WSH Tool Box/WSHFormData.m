@@ -19,6 +19,7 @@
 #import "WSHFormData.h"
 
 #define CODER_KEYS @"618def6c21268a7570d772b2772b0e35" // this is the MD5 of the 2013.02.01 ArchLinux install iso :)
+#define VERSION 1
 
 @interface WSHFormData ()
 
@@ -91,4 +92,8 @@
     return self.data.allKeys;
 }
 
+-(int)version
+{
+    return VERSION;
+}
 @end
