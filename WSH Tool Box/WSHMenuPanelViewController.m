@@ -25,6 +25,7 @@
 #import "WSHAppDelegate.h"
 #import "JASidePanelController.h"
 #import "WSHPreferences.h"
+#import "WSHPreferencesViewController.h"
 
 @interface WSHMenuPanelViewController ()
 
@@ -111,9 +112,9 @@
             return 1;
         case 1:
 #ifdef TESTING
-            return 2; // about + feedback
+            return 3; //  + feedback
 #else
-            return 1; // about only
+            return 2;
 #endif
         case 2:
             return 2; // this only gets hit if debug is true
@@ -162,9 +163,12 @@
         case 1:
             switch (indexPath.row) {
                 case 0:
-                    text = @"About";
+                    text = @"Preferences";
                     break;
                 case 1:
+                    text = @"About";
+                    break;
+                case 2:
                     text = @"Send Feedback";
                     break;
             }
@@ -217,9 +221,12 @@
         case 1:
             switch (indexPath.row) {
                 case 0:
-                    appDelegate.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[WSHAboutViewController alloc] initWithNibName:@"WSHAboutViewController" bundle:nil]];
+                    appDelegate.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[WSHPreferencesViewController alloc] init]];
                     break;
                 case 1:
+                    appDelegate.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[WSHAboutViewController alloc] initWithNibName:@"WSHAboutViewController" bundle:nil]];
+                    break;
+                case 2:
                     //[TestFlight openFeedbackView];
                     appDelegate.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[WSHFeedbackViewController alloc] initWithNibName:@"WSHFeedbackViewController" bundle:nil]];
                     break;
