@@ -22,6 +22,7 @@
 
 #define TITLE_KEY @"_title"
 #define SUBTITLE_KEY @"_subtitle"
+#define TIMESTAMP_KEY @"_timestamp"
 
 #define DEFAULT_DATE_TEMPLATE @"EdMMMyyyyhmma"
 #define DEFAULT_FLOAT_FORMAT @"%g"
@@ -61,7 +62,7 @@
 }
 -(void)setTitle:(NSString *)title
 {
-    [self.formData setObject:title forKey:TITLE_KEY];
+    [self.formData setObject:[title copy] forKey:TITLE_KEY];
 }
 
 -(NSString*)subtitle
@@ -70,7 +71,7 @@
 }
 -(void)setSubtitle:(NSString *)subtitle
 {
-    [self.formData setObject:subtitle forKey:SUBTITLE_KEY];
+    [self.formData setObject:[subtitle copy] forKey:SUBTITLE_KEY];
 }
 
 -(BOOL) validateData:(NSError *__autoreleasing *)err

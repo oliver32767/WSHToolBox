@@ -19,10 +19,13 @@
 
 #import <UIKit/UIKit.h>
 #import "WSHHistorySource.h"
+#import "WSHHistorySourceDelegate.h"
 
 @interface WSHHistoryViewController : UITableViewController <UIAlertViewDelegate>
 
-- (id) initWithHistorySource:(WSHHistorySource*)source;
+@property (copy) NSDateFormatter* dateFormatter;
+
+- (id) initWithHistorySource:(WSHHistorySource*)source delegate:(id<WSHHistorySourceDelegate>)delegate;
 
 
 @end

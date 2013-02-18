@@ -18,6 +18,7 @@
 
 
 #import "WSHHistorySource.h"
+#import "WSHPreferences.h"
 
 @interface WSHHistorySource ()
 
@@ -39,15 +40,33 @@
 {
     self = [self init];
     if (self) {
-        NSLog(@"Unarchiving");
         _forms = [NSKeyedUnarchiver unarchiveObjectWithData:archive];
+        if (!_forms) {
+            _forms = [[NSMutableArray alloc] init];    
+        }
     }
     return self;
 }
+-(id)initWithArchiveWithKey:(NSString*)key
+{
+    _archiveKey = key;
+    return [self initWithArchive:[WSHPreferences formDataArchiveWithKey:key]];
+}
+
+-(void)saveToArchive
+{
+    [self saveToArchiveForKey:_archiveKey];
+}
+-(void)saveToArchiveForKey:(NSString*)key
+{
+    NSData* archive = [self archive];
+    [WSHPreferences setFormDataArchive:archive forKey:key];
+}
+
 -(NSData*)archive
 {
-    NSLog(@"Archiving");
-    return [NSKeyedArchiver archivedDataWithRootObject:_forms];
+    NSData* rv = [NSKeyedArchiver archivedDataWithRootObject:_forms];
+    return rv;
 }
 
 -(int)count
@@ -56,8 +75,8 @@
 }
 -(void)addForm:(WSHFormData*)form
 {
-    NSLog(@"Adding form");
     [_forms addObject:form];
+    [self saveToArchive];
 }
 -(WSHFormData*)formAtIndex:(NSUInteger) index
 {
@@ -66,6 +85,7 @@
 -(void)removeAllForms
 {
     [_forms removeAllObjects];
+    [self saveToArchive];
 }
 
 @end

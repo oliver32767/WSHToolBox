@@ -23,15 +23,15 @@
 
 @implementation WSHPreferences
 
-+(void) initialize
-{
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:UNIQUE_KEY]) {
-        [self resetAllPreferences];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UNIQUE_KEY];
-    }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
-}
+//+(void) initialize
+//{
+//    if (![[NSUserDefaults standardUserDefaults] boolForKey:UNIQUE_KEY]) {
+//        [self resetAllPreferences];
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UNIQUE_KEY];
+//    }
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
+//}
 
 +(void)defaultsChanged
 {
@@ -40,7 +40,8 @@
 
 +(void) resetAllPreferences
 {
-    NSLog(@"Resetting preferences!");
+    UILog(@"Resetting preferences!");
+//    NSLog(@"Resetting preferences!");
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     
@@ -83,7 +84,7 @@
 {
     if (![self shouldSaveFieldValueHistory]) return;
     
-    NSMutableDictionary* values = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultFieldValues"];
+    NSMutableDictionary* values =  [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"defaultFieldValues"]];
     if (!values) {
         values = [[NSMutableDictionary alloc] init];
     }
@@ -92,7 +93,7 @@
 }
 +(void) removeDefaultFieldValueForKey:(id)key
 {
-    NSMutableDictionary* values = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultFieldValues"];
+    NSMutableDictionary* values =  [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"defaultFieldValues"]];
     [values removeObjectForKey:key];
     [[NSUserDefaults standardUserDefaults] setObject:values forKey:@"defaultFieldValues"];
 }
@@ -127,7 +128,7 @@
 {
     if (![self shouldSaveFieldValueHistory]) return;
     
-    NSMutableDictionary* autocompleteValues = [[NSUserDefaults standardUserDefaults] objectForKey:@"autocompleteValues"];
+    NSMutableDictionary* autocompleteValues =  [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"autocompleteValues"]];
     if (!autocompleteValues) {
         autocompleteValues = [[NSMutableDictionary alloc] init];
     }
@@ -137,7 +138,7 @@
 }
 +(void) removeAutocompleteValuesWithKey:(id)key
 {
-    NSMutableDictionary* autocompleteValues = [[NSUserDefaults standardUserDefaults] objectForKey:@"autocompleteValues"];
+    NSMutableDictionary* autocompleteValues = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"autocompleteValues"]];
     [autocompleteValues removeObjectForKey:key];
     [[NSUserDefaults standardUserDefaults] setObject:autocompleteValues forKey:@"autocompleteValues"];
 }
@@ -161,7 +162,7 @@
 {
     if (![self shouldSaveFormDataHistory]) return;
     
-    NSMutableDictionary* archives = [[NSUserDefaults standardUserDefaults] objectForKey:@"archives"];
+    NSMutableDictionary* archives = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"archives"]];
     if (!archives) {
         archives = [[NSMutableDictionary alloc] init];
     }

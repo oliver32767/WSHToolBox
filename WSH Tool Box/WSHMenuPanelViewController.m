@@ -117,7 +117,7 @@
             return 2;
 #endif
         case 2:
-            return 2; // this only gets hit if debug is true
+            return 1; // this only gets hit if debug is true
     }
     return 0;
 }
@@ -174,14 +174,8 @@
             }
             break;
         case 2:
-            switch (indexPath.row) {
-                case 0:
-                    text = @"Debug Report";
-                    break;
-                case 1:
-                    text = @"Reset Preferences";
-                    break;
-            }
+            text = @"Debug Report";
+            break;
     }
     [cell.textLabel setText:text];
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
@@ -233,17 +227,10 @@
             }
             break;
         case 2:
-            switch (indexPath.row) {
-                case 0:
-                    appDelegate.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[WSHDebugFormViewController alloc] init]];
-                    break;
-                case 1:
-                    [WSHPreferences resetAllPreferences];
-                    [self.tableView selectRowAtIndexPath:self.selectedIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
-                    [appDelegate.viewController showCenterPanelAnimated:YES];
-                    return;
-                    break;
-            }
+
+            appDelegate.viewController.centerPanel = [[UINavigationController alloc] initWithRootViewController:[[WSHDebugFormViewController alloc] init]];
+            break;
+
     }
     
     [TestFlight passCheckpoint:

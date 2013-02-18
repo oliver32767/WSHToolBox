@@ -20,6 +20,11 @@
 
 @interface WSHFormData : NSObject <NSCoding>
 
+@property (readonly) int version;
+@property (readonly) NSDate* timestamp;
+
+@property NSString* title;
+@property NSString* subtitle;
 
 -(id)initWithCoder:(NSCoder *)aDecoder;
 -(void)encodeWithCoder:(NSCoder *)aCoder;
@@ -31,7 +36,5 @@
 - (NSUInteger)count;
 
 - (NSArray *)allKeys;
-
--(int) version;
 
 @end

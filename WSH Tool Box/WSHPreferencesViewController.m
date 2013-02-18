@@ -52,7 +52,7 @@
     
     QSection* section1 = [[QSection alloc] initWithTitle:nil];
     section1.footer = @"Report History allows you to keep a history of previously generated reports. Setting this to Off will delete all report history records.";
-
+    
     QBooleanElement* formHistory = [[QBooleanElement alloc] initWithTitle:@"Report History" BoolValue:[WSHPreferences shouldSaveFormDataHistory]];
     [formHistory setKey:@"formHistory"];
     formHistory.onValueChanged = ^(QRootElement* root){
@@ -76,6 +76,23 @@
     [section2 addElement:fieldValues];
     [root addSection:section2];
     
+#ifdef DEBUG
+    QSection* section3 = [[QSection alloc] initWithTitle:@"Debug"];
+    
+    QButtonElement* reset = [[QButtonElement alloc] initWithTitle:@"Reset UserDefaults"];
+    reset.onSelected = ^(void){
+        [WSHPreferences resetAllPreferences];
+    };
+    
+    QButtonElement* prefDump = [[QButtonElement alloc] initWithTitle:@"Dump NSUserDefaults to log"];
+    prefDump.onSelected = ^(void){
+        NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
+    };
+
+    [section3 addElement:reset];
+    [section3 addElement:prefDump];
+    [root addSection:section3];
+#endif
     return root;
 }
 

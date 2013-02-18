@@ -1,8 +1,8 @@
 //
-//  WSHHistorySource.h
+//  WSHHistorySourceDelegate.h
 //  WSH Tool Box
 //
-//  Created by Oliver Bartley on 2/14/13.
+//  Created by Oliver Bartley on 2/17/13.
 //  Copyright 2013 Oliver Bartley - http://brtly.net
 //
 //  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -16,26 +16,11 @@
 //  permissions and limitations under the License.
 //
 
-
 #import <Foundation/Foundation.h>
-#import "WSHReport.h"
+#import "WSHFormData.h"
 
-@interface WSHHistorySource : NSObject <UITableViewDataSource>
+@protocol WSHHistorySourceDelegate <NSObject>
 
-@property NSString* title;
-@property (readonly) NSString* archiveKey;
-
--(id)init;
-//-(id)initWithArchive:(NSData*)archive;
--(id)initWithArchiveWithKey:(NSString*)key;
-
-//-(NSData*)archive;
--(void)saveToArchive;
--(void)saveToArchiveForKey:(NSString*)key;
-
--(int)count;
--(void)addForm:(WSHFormData*)form;
--(WSHFormData*)formAtIndex:(NSUInteger) index;
--(void)removeAllForms;
+-(void)didSelectHistoryItem:(WSHFormData*)formData;
 
 @end

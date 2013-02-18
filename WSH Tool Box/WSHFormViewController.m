@@ -16,6 +16,7 @@
 //  permissions and limitations under the License.
 //
 
+#import <objc/runtime.h>
 
 #import "WSHFormViewController.h"
 #import "WSHReport.h"
@@ -23,8 +24,11 @@
 #import "WSHHtmlReportViewController.h"
 #import "QRootElement+AllKeys.h"
 #import "WSHPreferences.h"
+#import "WSHHistorySource.h"
 
 @interface WSHFormViewController ()
+
+@property WSHHistorySource* historySource;
 
 @end
 
@@ -35,24 +39,52 @@
     self = [super init];
     if (self) {
         self.maintainHistory = [WSHPreferences shouldSaveFormDataHistory];
+        if (_maintainHistory) {
+            NSString* className = [NSString stringWithUTF8String: class_getName([self class])];
+            NSLog(@"Loading history for: %@", className);
+            _historySource = [[WSHHistorySource alloc] initWithArchiveWithKey:className];
+        }
         return [super initWithRoot:[self createRootElement]];
     }
     return self;
 }
 
--(id)initWithFormData:(WSHFormData*)formData
-{
-    self = [self init];
-    if (self) {
-        
-    }
-    return self;
-}
+//-(id)initWithFormData:(WSHFormData*)formData
+//{
+//    self = [self init];
+//    if (self) {
+//        
+//    }
+//    return self;
+//}
 
 - (QRootElement*)createRootElement
 {
     return [[QRootElement alloc] init];
 }
+
+- (QRootElement*)createRootElementWithFormData:(WSHFormData*)formData
+{
+    QRootElement* root = [self createRootElement];
+    QEntryElement* element;
+    for (id key in [formData allKeys]) {
+        element = (QEntryElement*)[root elementWithKey:key];
+        if ([element isKindOfClass:[QDecimalElement class]]) {
+            [(QDecimalElement*) element setFloatValue:[[formData objectForKey:key] floatValue]];
+        } else if ([element isKindOfClass:[QDateTimeInlineElement class]]) {
+            
+            [(QDateTimeInlineElement*) element setDateValue:[formData objectForKey:key]];
+        } else if ([element isKindOfClass: [QEntryElement class]] ||
+                   [element isKindOfClass: [QAutoEntryElement class]]) {
+            [element setTextValue:[formData objectForKey:key]];
+            
+        } else {
+            [element setValue:[formData objectForKey:key]];
+        }
+    }
+    return root;
+}
+
 
 - (void)viewDidLoad
 {
@@ -76,9 +108,17 @@
     self.quickDialogTableView.backgroundColor = [UIColor rootViewBackground];
 }
 
--(NSDictionary*) formData;
+-(void)didSelectHistoryItem:(WSHFormData*)formData
 {
-    NSMutableDictionary* rv = [[NSMutableDictionary alloc] init];
+    NSLog(@"Showing history item: %@", formData.timestamp);
+    [self setRoot:[self createRootElementWithFormData:formData]];
+}
+
+-(WSHFormData*) formData;
+{
+    WSHFormData* rv = [[WSHFormData alloc] init];
+    [rv setTitle:self.title];
+//    [rv setSubtitle:@"WAT"];
     NSEnumerator* k = [[self.root allElementKeys] objectEnumerator];
 
     NSString* key = nil;
@@ -108,10 +148,12 @@
     return rv;
 }
 
-- (void) addReportToHistory:(WSHReport*)report
+- (void) addFormToHistory:(WSHFormData*)form
 {
     if (self.maintainHistory) {
-        NSLog(@"Saving %@ to history", report.description);
+        NSLog(@"Saving %@ to history", form.description);
+        [_historySource addForm:form];
+//        [_historySource saveToArchiveForKey:[NSString stringWithUTF8String: class_getName([self class])]];
     }
 }
 
@@ -126,7 +168,7 @@
 {
     if (self.maintainHistory) {
         [TestFlight passCheckpoint:[NSString stringWithFormat:@"Viewed history: %@", self.title]];
-        WSHHistoryViewController* historyViewController = [[WSHHistoryViewController alloc] init];
+        WSHHistoryViewController* historyViewController = [[WSHHistoryViewController alloc] initWithHistorySource:_historySource delegate:self];
         [self.navigationController pushViewController:historyViewController animated:YES];
     }
 }

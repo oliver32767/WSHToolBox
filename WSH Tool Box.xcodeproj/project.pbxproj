@@ -71,6 +71,7 @@
 		4070C02A16CC919600BF46C5 /* JASidePanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4070C02716CC919600BF46C5 /* JASidePanelController.m */; };
 		4070C02B16CC919600BF46C5 /* UIViewController+JASidePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4070C02916CC919600BF46C5 /* UIViewController+JASidePanel.m */; };
 		4070C02D16CC91AF00BF46C5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4070C02C16CC91AF00BF46C5 /* QuartzCore.framework */; };
+		4084FA2716D19CD500D8CC28 /* WSHPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4084FA2616D19CD500D8CC28 /* WSHPreferencesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +204,9 @@
 		4070C02816CC919600BF46C5 /* UIViewController+JASidePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+JASidePanel.h"; path = "JASidePanels/JASidePanels/Source/UIViewController+JASidePanel.h"; sourceTree = SOURCE_ROOT; };
 		4070C02916CC919600BF46C5 /* UIViewController+JASidePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+JASidePanel.m"; path = "JASidePanels/JASidePanels/Source/UIViewController+JASidePanel.m"; sourceTree = SOURCE_ROOT; };
 		4070C02C16CC91AF00BF46C5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4084FA2516D19CD500D8CC28 /* WSHPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSHPreferencesViewController.h; sourceTree = "<group>"; };
+		4084FA2616D19CD500D8CC28 /* WSHPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSHPreferencesViewController.m; sourceTree = "<group>"; };
+		4084FA2816D1C10300D8CC28 /* WSHHistorySourceDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSHHistorySourceDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +323,8 @@
 				40391DCF16CE5285000F0D55 /* WSHDebugFormViewController.m */,
 				4023881B16CF434800314BCF /* WSHFeedbackViewController.h */,
 				4023881C16CF434800314BCF /* WSHFeedbackViewController.m */,
+				4084FA2516D19CD500D8CC28 /* WSHPreferencesViewController.h */,
+				4084FA2616D19CD500D8CC28 /* WSHPreferencesViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -344,6 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				4023880316CF180600314BCF /* WSHHtmlReporting.h */,
+				4084FA2816D1C10300D8CC28 /* WSHHistorySourceDelegate.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -650,6 +657,7 @@
 				4023882816CF4D5D00314BCF /* UIColor+Motif.m in Sources */,
 				4055AC8616D04DE500A14763 /* WSHPreferences.m in Sources */,
 				4055ACAF16D0DA2400A14763 /* WSHFormData.m in Sources */,
+				4084FA2716D19CD500D8CC28 /* WSHPreferencesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

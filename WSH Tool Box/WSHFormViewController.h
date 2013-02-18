@@ -19,12 +19,17 @@
 
 #import "QuickDialogController.h"
 #import "WSHReport.h"
+#import "WSHFormData.h"
+#import "WSHHistorySourceDelegate.h"
 
-@interface WSHFormViewController : QuickDialogController
+@interface WSHFormViewController : QuickDialogController <WSHHistorySourceDelegate>
+
+@property BOOL maintainHistory;
 
 -(void) showHtmlReport:(WSHReport*)report;
 -(WSHFormData*) formData;
 
-@property BOOL maintainHistory;
+- (void) addFormToHistory:(WSHFormData*)form;
+-(void)didSelectHistoryItem:(WSHFormData*)formData;
 
 @end

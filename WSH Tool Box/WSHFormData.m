@@ -18,7 +18,13 @@
 
 #import "WSHFormData.h"
 
-#define CODER_KEYS @"618def6c21268a7570d772b2772b0e35" // this is the MD5 of the 2013.02.01 ArchLinux install iso :)
+#define TITLE_KEY @"_title"
+#define SUBTITLE_KEY @"_subtitle"
+
+#define CODER_KEYS @"coder-keys-618def6c21268a7570d772b2772b0e35" // this is the MD5 of the 2013.02.01 ArchLinux install iso :)
+#define VERSION_KEY @"version-618def6c21268a7570d772b2772b0e35"
+#define TIMESTAMP_KEY @"timestamp-618def6c21268a7570d772b2772b0e35"
+
 #define VERSION 1
 
 @interface WSHFormData ()
@@ -33,6 +39,8 @@
 {
     self = [super init];
     if (self) {
+        _version = VERSION;
+        _timestamp = [NSDate date];
         _data = [[NSMutableDictionary alloc] init];
     }
     return self;
@@ -42,33 +50,41 @@
     if ((self = [self init]))
     {
         NSArray* coderKeys = [aDecoder decodeObjectForKey:CODER_KEYS];
-        NSLog(@"Decoding");
         for (NSString *key in coderKeys)
         {
             id obj = [aDecoder decodeObjectForKey:key];
-            NSLog(@"%@ = %@", key, obj);
             [_data setObject:obj forKey:key];
+        }
+        _version = [aDecoder decodeIntForKey:VERSION_KEY];
+        _timestamp = [aDecoder decodeObjectForKey:TIMESTAMP_KEY];
+        if (_version < VERSION) {
+            self = [self upgradeToNewVersion:VERSION];
         }
     }
     return self;
 }
 -(void)encodeWithCoder:(NSCoder *)aCoder
 {
-    NSLog(@"Encoding");
     [aCoder encodeObject:_data.allKeys forKey:CODER_KEYS];
     for (NSString *key in [_data allKeys])
     {
         id obj = [_data objectForKey:key];
-        NSLog(@"%@ = %@", key, obj);
         [aCoder encodeObject:obj forKey:key];
     }
+    [aCoder encodeInt:_version forKey:VERSION_KEY];
+    [aCoder encodeObject:_timestamp forKey:TIMESTAMP_KEY];
+}
+-(WSHFormData*)upgradeToNewVersion:(int)v
+{
+    NSLog(@"This feature is not yet implemented.");
+    return nil;
 }
 
 - (void)setObject:(id)anObject forKey:(id < NSCopying >)aKey
 {
-    NSLog(@"setObject:%@", anObject);
     if (!anObject) {
         [_data setObject:@"" forKey:aKey];
+        NSLog(@"Not An Object:%@ forKey:%@", anObject, aKey);
     } else {
         [_data setObject:anObject forKey:aKey];
     }
@@ -92,8 +108,28 @@
     return self.data.allKeys;
 }
 
--(int)version
+- (NSString*) title
 {
-    return VERSION;
+    return [self objectForKey:TITLE_KEY];
 }
+-(void) setTitle:(NSString*)title
+{
+    [self setObject:[title copy] forKey:TITLE_KEY];
+}
+-(NSString*)subtitle
+{
+    return [self objectForKey:SUBTITLE_KEY];
+}
+-(void)setSubtitle:(NSString*)subtitle
+{
+    [self setObject:[subtitle copy] forKey:SUBTITLE_KEY];
+}
+
+-(NSString*) description
+{
+    NSString* aTitle = (self.title) ? self.title : @"Untitled Report";
+    NSString* aSubtitle = (self.subtitle) ? [NSString stringWithFormat:@" - %@", self.subtitle] : @"";
+    return [NSString stringWithFormat:@"%@%@", aTitle, aSubtitle];
+}
+
 @end

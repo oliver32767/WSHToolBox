@@ -17,7 +17,7 @@
 {
     [super setUp];
     
-    // Set-up code here.
+    [WSHPreferences resetAllPreferences];
 }
 
 - (void)tearDown
@@ -37,26 +37,51 @@
     WSHHistorySource* hist = [[WSHHistorySource alloc] init];
     
     
-    WSHFormData* form = [[WSHFormData alloc] init];
+
     
     NSDate* d = [NSDate date];
     NSString* s = @"NSString";
     NSNumber* f = [NSNumber numberWithFloat:327.67f];
+    
+    WSHFormData* form = [[WSHFormData alloc] init];
+    NSAssert((hist.count == 0), @"Count is wrong!");
     
     [form setObject:d forKey:@"date"];
     [form setObject:s forKey:@"string"];
     [form setObject:f forKey:@"float"];
     
     [hist addForm:form];
-
-    [WSHPreferences setFormDataArchive:[hist archive] forKey:archiveKey];
     
-    hist = [[WSHHistorySource alloc] initWithArchive:[WSHPreferences formDataArchiveWithKey:archiveKey]];
+    [hist saveToArchiveForKey:archiveKey];
+    hist = [[WSHHistorySource alloc] initWithArchiveWithKey:archiveKey];
+
     form = [hist formAtIndex:0];
     
     NSAssert(([[form objectForKey:@"date"] isEqualToDate:d]), @"Dates don't match!");
     NSAssert(([[form objectForKey:@"string"] isEqualToString:s]), @"Strings don't match");
     NSAssert(([[form objectForKey:@"float"] floatValue] == [f floatValue]), @"Floats don't match!");
+    
+    WSHFormData* form2 = [[WSHFormData alloc] init];
+    [form2 setObject:d forKey:@"date"];
+    [form2 setObject:s forKey:@"string"];
+    [form2 setObject:f forKey:@"float"];
+    [hist addForm:form2];
+    
+    [hist saveToArchive];
+    hist = [[WSHHistorySource alloc] initWithArchiveWithKey:archiveKey];
+    
+    form = [hist formAtIndex:1];
+    
+    NSAssert(([[form objectForKey:@"date"] isEqualToDate:d]), @"Dates don't match!");
+    NSAssert(([[form objectForKey:@"string"] isEqualToString:s]), @"Strings don't match");
+    NSAssert(([[form objectForKey:@"float"] floatValue] == [f floatValue]), @"Floats don't match!");
+    
+    NSAssert((hist.count == 2), @"Count is wrong!");
+    
+    [hist removeAllForms];
+    
+    NSAssert((hist.count == 0), @"Count is wrong!");
+    
 
 }
 

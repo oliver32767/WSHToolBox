@@ -28,15 +28,6 @@
 
 @implementation WSHDebugFormViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -52,7 +43,7 @@
 - (QRootElement*)createRootElement {
     QRootElement* root = [[QRootElement alloc] init];
     root.grouped = YES;
-    root.title = @"Rule of Ten";
+    root.title = @"Debug Report";
     
     QEntryElement* name = [[QEntryElement alloc] initWithTitle:@"Name" Value:[WSHPreferences defaultFieldValueWithKey:@"name"] Placeholder:nil];
     [name setKey:@"name"];
@@ -88,11 +79,11 @@
 
 - (void) onCalculate
 {
-    WSHDebugReport* report = [[WSHDebugReport alloc] initWithFormData:[self formData]];
+    WSHFormData* form = [self formData];
+    form.subtitle = [form objectForKey:@"autocomplete"];
+    WSHDebugReport* report = [[WSHDebugReport alloc] initWithFormData:form];
+    [self addFormToHistory:form];
     [self showHtmlReport:report];
-//    WSHHtmlReportViewController* reportViewController = [[WSHHtmlReportViewController alloc] initWithNibName:@"WSHHtmlReportViewController" bundle:nil];
-//    reportViewController.report = report;
-//    [self.navigationController pushViewController:reportViewController animated:YES];
 }
 
 @end
