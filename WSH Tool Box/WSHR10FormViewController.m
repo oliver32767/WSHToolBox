@@ -89,16 +89,29 @@
 
 - (void) onCalculate
 {
+    WSHFormData* form = [self formData];
+    
+    form.title = @"Rule of Ten";
+    
+    // THIS IS A DIRTY HACK TO GET AT THE REPORT'S DATE FORMATTER
+    WSHR10Report* hack = [[WSHR10Report alloc] initWithFormData:form];
+    form.subtitle = [NSString stringWithFormat: @"%@ - %@ - %@",
+                     [form objectForKey:@"location"],
+                     [form objectForKey:@"chemicalName"],
+                     [hack.dateFormatter stringFromDate:[form objectForKey:@"date"]]];
+    
+    if ([form objectForKey:@"name"]) {
+        [WSHPreferences setDefaultFieldValue:[form objectForKey:@"name"] forKey:@"name"];
+    }
+    
+    if ([form objectForKey:@"chemicalName"]) {
+        [WSHPreferences addAutocompleteValue:[form objectForKey:@"chemicalName"] forValuesWithKey:@"chemicalName"];
+    }
     WSHR10Report* report = [[WSHR10Report alloc] initWithFormData:[self formData]];
-    if ([report.formData objectForKey:@"name"]) {
-        [WSHPreferences setDefaultFieldValue:[report.formData objectForKey:@"name"] forKey:@"name"];
+
+    if ([self maintainHistory]) {
+        [self addFormToHistory:form];
     }
-    
-    if ([report.formData objectForKey:@"chemicalName"]) {
-        [WSHPreferences addAutocompleteValue:[report.formData objectForKey:@"chemicalName"] forValuesWithKey:@"chemicalName"];
-    }
-    
-    [report setTitle:@"Rule of Ten"];
     [self showHtmlReport:report];
 
 }
