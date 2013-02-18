@@ -93,12 +93,17 @@
     
     form.title = @"Rule of Ten";
     
-    // THIS IS A DIRTY HACK TO GET AT THE REPORT'S DATE FORMATTER
-    WSHR10Report* hack = [[WSHR10Report alloc] initWithFormData:form];
-    form.subtitle = [NSString stringWithFormat: @"%@ - %@ - %@",
-                     [form objectForKey:@"location"],
-                     [form objectForKey:@"chemicalName"],
-                     [hack.dateFormatter stringFromDate:[form objectForKey:@"date"]]];
+    NSString* subtitle = @"";
+    if ([form objectForKey:@"location"]) {
+        subtitle = [NSString stringWithFormat: @"%@", [form objectForKey:@"location"]];
+    } else {
+        subtitle = @"Unknown Location";
+    }
+    if ([form objectForKey:@"chemicalName"] && [(NSString*) [form objectForKey:@"chemicalName"] length] > 0) {
+        subtitle = [NSString stringWithFormat: @"%@ - %@", subtitle, [form objectForKey:@"chemicalName"]];
+    }
+    
+    form.subtitle = subtitle;
     
     if ([form objectForKey:@"name"]) {
         [WSHPreferences setDefaultFieldValue:[form objectForKey:@"name"] forKey:@"name"];
