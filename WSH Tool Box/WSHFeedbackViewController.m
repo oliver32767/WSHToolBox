@@ -87,9 +87,9 @@
 {
     UITextView* feedback = (UITextView*) [self.view viewWithTag:FEEDBACK_TAG];
     
-    if (feedback.text.length < 15) {
+    if (feedback.text.length < 10) {
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Feedback Too Short"
-                                                          message:@"Your message is too short. Please add some more feedback before trying to send."
+                                                          message:@"Your message is too short. Please add some more feedback before trying to send.\n(10 char. minimum)"
                                                          delegate:nil
                                                 cancelButtonTitle:@"OK"
                                                 otherButtonTitles:nil];
