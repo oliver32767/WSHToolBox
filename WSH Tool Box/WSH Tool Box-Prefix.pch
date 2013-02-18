@@ -29,10 +29,13 @@
     #import "UIColor+Motif.h"
 #endif
 
-#ifndef DEBUG
 #undef NSLog
-#define NSLog(args, ...)
+#ifdef DEBUG
+#   define NSLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#   define NSLog(...)
 #endif
+
 
 //#undef DEBUG
 #define TESTING 1
