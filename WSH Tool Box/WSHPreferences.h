@@ -34,12 +34,14 @@
 +(void) setDefaultFieldValue:(id)value forKey:(id<NSCopying>)key;
 +(void) removeDefaultFieldValueForKey:(id)key;
 +(NSArray*) allDefaultFieldValueKeys;
++(void) removeAllDefaultFieldValues;
 
 +(NSArray*) autocompleteValuesWithKey:(id)key;
 +(void) addAutocompleteValue:(NSString*)value forValuesWithKey:(id<NSCopying>)key;
 +(void) setAutoCompleteValues:(NSArray*)values forKey:(id<NSCopying>)key;
 +(void) removeAutocompleteValuesWithKey:(id)key;
 +(NSArray*) allAutocompleteValuesKeys;
++(void) removeAllAutocompleteValues;
 
 +(NSData*) formDataArchiveWithKey:(id)key;
 +(void) setFormDataArchive:(NSData*)archive forKey:(id<NSCopying>)key;

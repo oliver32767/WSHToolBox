@@ -22,6 +22,7 @@
 #import "WSHHistoryViewController.h"
 #import "WSHHtmlReportViewController.h"
 #import "QRootElement+AllKeys.h"
+#import "WSHPreferences.h"
 
 @interface WSHFormViewController ()
 
@@ -33,9 +34,17 @@
 {
     self = [super init];
     if (self) {
-        self.maintainHistory = YES;
-        [TestFlight passCheckpoint:[NSString stringWithFormat:@"Form initialized"]];
+        self.maintainHistory = [WSHPreferences shouldSaveFormDataHistory];
         return [super initWithRoot:[self createRootElement]];
+    }
+    return self;
+}
+
+-(id)initWithFormData:(WSHFormData*)formData
+{
+    self = [self init];
+    if (self) {
+        
     }
     return self;
 }

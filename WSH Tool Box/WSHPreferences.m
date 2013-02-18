@@ -28,6 +28,13 @@
     if (![[NSUserDefaults standardUserDefaults] boolForKey:UNIQUE_KEY]) {
         [self resetAllPreferences];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
+}
+
++(void)defaultsChanged
+{
+    NSLog(@"WSHPreferences-defaultsChanged");
 }
 
 +(void) resetAllPreferences
@@ -45,6 +52,9 @@
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"shouldSaveFormDataHistory"];
 }
 +(void) setShouldSaveFormDataHistory:(BOOL)value{
+    if (!value) {
+        [WSHPreferences removeAllArchives];
+    }
     [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"shouldSaveFormDataHistory"];
 }
 
@@ -54,6 +64,10 @@
 }
 +(void) setShouldSaveFieldValueHistory:(BOOL)value
 {
+    if (!value) {
+        [WSHPreferences removeAllAutocompleteValues];
+        [WSHPreferences removeAllDefaultFieldValues];
+    }
     [[NSUserDefaults standardUserDefaults] setBool:value forKey:@"shouldSaveFieldValueHistory"];
 }
 
@@ -84,6 +98,10 @@
 +(NSArray*) allDefaultFieldValueKeys
 {
     return [[[NSUserDefaults standardUserDefaults] objectForKey:@"defaultFieldValues"] allKeys];
+}
++(void) removeAllDefaultFieldValues
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"defaultFieldValues"];
 }
 
 #pragma mark autocomplete
