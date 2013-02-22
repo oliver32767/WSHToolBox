@@ -10,6 +10,7 @@
 #import "WSHHistorySource.h"
 #import "WSHFormData.h"
 #import "WSHPreferences.h"
+#import "WSHR10Report.h"
 
 @implementation WSH_Tool_BoxTests
 
@@ -27,7 +28,30 @@
     [super tearDown];
 }
 
-- (void)testHistory
+-(void)testR10Report
+{
+    WSHFormData* form = [[WSHFormData alloc] init];
+    
+    [form setObject:@"Abby" forKey:@"name"];
+    [form setObject:@"LSB Room 2522" forKey:@"location"];
+    [form setObject:[NSDate date] forKey:@"date"];
+    
+    [form setObject:@"Bleach" forKey:@"chemicalName"];
+    [form setObject:[NSNumber numberWithFloat:10.0f] forKey:@"vaporPressure"];
+    [form setObject:[NSNumber numberWithFloat:25.0f] forKey:@"exposureLimit"];
+    [form setObject:[NSNumber numberWithFloat:50.0f] forKey:@"stel"];
+    [form setObject:[NSNumber numberWithFloat:125.0f] forKey:@"ceiling"];
+
+    WSHR10Report* report = [[WSHR10Report alloc] initWithFormData:form];
+    [report calculate];
+
+    NSString* assertion = [NSString stringWithFormat:@"Calculation is wrong, expected 13158.0 but got %f", [[[report formData] objectForKey:@"saturationConcentration"] floatValue]];
+    NSAssert(([[[report formData] objectForKey:@"saturationConcentration"] floatValue] == 13158.0f), assertion);
+
+}
+
+
+- (void)testFormHistory
 {
 
     NSString* archiveKey = @"testHistorySource";
