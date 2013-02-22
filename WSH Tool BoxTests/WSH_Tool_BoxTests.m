@@ -43,10 +43,12 @@
     [form setObject:[NSNumber numberWithFloat:125.0f] forKey:@"ceiling"];
 
     WSHR10Report* report = [[WSHR10Report alloc] initWithFormData:form];
-    [report calculate];
+    [report calculate:nil];
+    
+    float actual = round([[[report formData] objectForKey:@"saturationConcentration"] floatValue]);
 
-    NSString* assertion = [NSString stringWithFormat:@"Calculation is wrong, expected 13158.0 but got %f", [[[report formData] objectForKey:@"saturationConcentration"] floatValue]];
-    NSAssert(([[[report formData] objectForKey:@"saturationConcentration"] floatValue] == 13158.0f), assertion);
+    NSString* assertion = [NSString stringWithFormat:@"Calculation is wrong, expected 13158.0 but got %f", actual];
+    NSAssert((actual == 13158.0f), assertion);
 
 }
 
