@@ -21,6 +21,8 @@
 #import "WSHDebugReport.h"
 #import "WSHHtmlReportViewController.h"
 #import "WSHPreferences.h"
+#import "UIImage+Motif.h"
+#import "WSHInfoViewController.h"
 
 @interface WSHDebugFormViewController ()
 
@@ -70,20 +72,48 @@
     
     QSection* actions = [[QSection alloc] init];
     QButtonElement* calculate = [[QButtonElement alloc] initWithTitle:@"Calculate"];
-    calculate.controllerAction = @"onCalculate";
+    [calculate setKey:@"calculate"];
+    calculate.controllerAction = @"onCalculate:";
     [actions addElement:calculate];
     
     [root addSection:actions];
     return root;
 }
 
-- (void) onCalculate
+-(void) onAccessory:(id)sender
+{
+
+    WSHInfoViewController* viewController = [[WSHInfoViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
+    
+}
+
+- (void) onCalculate:(id)sender
 {
     WSHFormData* form = [self formData];
     form.subtitle = [form objectForKey:@"autocomplete"];
     WSHDebugReport* report = [[WSHDebugReport alloc] initWithFormData:form];
     [self addFormToHistory:form];
     [self showHtmlReport:report];
+}
+
+-(void) cell:(UITableViewCell *)cell willAppearForElement:(QElement *)element atIndexPath:(NSIndexPath *)indexPath
+{
+    if (element.key == @"calculate") {
+//        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [button setImage:[UIImage submitAccessory] forState:UIControlStateNormal];
+//        button.frame = CGRectMake(0, 0, 24, 24);
+//        [button addTarget:self action:@selector(onCalculate:) forControlEvents:UIControlEventTouchUpInside];
+//        cell.accessoryView = button;
+
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    } else if (element.key == @"vaporPressure") {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage infoAccessory] forState:UIControlStateNormal];
+        button.frame = CGRectMake(0, 0, 24, 24);
+        [button addTarget:self action:@selector(onAccessory:) forControlEvents:UIControlEventTouchUpInside];
+        cell.accessoryView = button;
+    }
 }
 
 @end

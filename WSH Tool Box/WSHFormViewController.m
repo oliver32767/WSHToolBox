@@ -104,6 +104,10 @@
 -(void) setQuickDialogTableView:(QuickDialogTableView *)quickDialogTableView
 {
     [super setQuickDialogTableView:quickDialogTableView];
+    
+    if ([self respondsToSelector:@selector(cell:willAppearForElement:atIndexPath:)]) {
+        [self.quickDialogTableView setStyleProvider:(NSObject <QuickDialogStyleProvider>*)self];
+    }
     self.quickDialogTableView.backgroundView = nil;
     self.quickDialogTableView.backgroundColor = [UIColor rootViewBackground];
 }

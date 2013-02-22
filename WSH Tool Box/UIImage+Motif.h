@@ -1,8 +1,8 @@
 //
-//  UIColor+Motif.h
+//  UIImage+Motif.h
 //  WSH Tool Box
 //
-//  Created by Oliver Bartley on 2/15/13.
+//  Created by Oliver Bartley on 2/22/13.
 //  Copyright 2013 Oliver Bartley - http://brtly.net
 //
 //  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -16,27 +16,11 @@
 //  permissions and limitations under the License.
 //
 
-
-
 #import <UIKit/UIKit.h>
 
-@interface UIColor (Motif)
+@interface UIImage (Motif)
 
-+(UIColor*) navigationBarTint;
-
-+(UIColor*) rootViewBackground;
-+(UIColor*) labelTextColor;
-+(UIColor*) viewBorderColor;
-
-+(UIColor*) reportViewBackground;
-
-+(UIColor*) menuViewBackground;
-+(UIColor*) menuButtonBackground;
-+(UIColor*) menuButtonBorder;
-+(UIColor*) menuButtonSelectedBackground;
-+(UIColor*) menuButtonSelectedBorder;
-+(UIColor*) menuButtonSelectedTextColor;
-
-+(UIColor*) autocompleteColor;
++(UIImage*) infoAccessory;
++(UIImage*) submitAccessory;
 
 @end
