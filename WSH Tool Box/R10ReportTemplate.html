@@ -11,7 +11,7 @@
             tr.header {background-color: #A4B3CA;}
             tr.odd {background-color: #FCFFFF;}
             tr.even {background-color: #C9CCCC;}
-            tr.important {background-color:#C8D1DF;}
+            tr.important {background-color:#6D9CE6;}
             td {}
             .title {color:#222;}
             .left {padding-left:0.25em; text-align:left; font-size:0.75em}
@@ -41,7 +41,7 @@
                                     <td class="right">{{location}}</td>
                                 </tr>
                                 <tr class="odd">
-                                    <td class="left">Date</td>
+                                    <td class="left">Spill Date/Time</td>
                                     <td class="right">{{date}}</td>
                                 </tr>
                             </tbody>
@@ -67,7 +67,7 @@
                                     <td class="right">{{chemicalName}}</td>
                                 </tr>
                                 <tr class="even">
-                                    <td class="left">Pure Compound Vapor Pressure (mm hg)</td>
+                                    <td class="left">Pure Compound Vapor Pressure (mm)</td>
                                     <td class="right">{{vaporPressure}}</td>
                                 </tr>
                             </tbody>
@@ -84,18 +84,15 @@
                         <table class="elements" style="width: 100%;">
                             <tbody>
                                 <tr class="odd">
-                                    <td class="left" style="width: 50%;">8 hr Exposure Limit</td>
-                                    <td class="center" style="width: 25%;">ppm</td>
-                                    <td class="right" style="width: 25%;">{{exposureLimit}}</td>
+                                    <td class="left" style="width: 50%;">8 hr Exposure Limit (ppm)</td>
+                                    <td class="right" style="width: 50%;">{{exposureLimit}}</td>
                                 </tr>
                                 <tr class="even">
-                                    <td class="left">STEL</td>
-                                    <td class="center">Default 3X TLV 30 mins</td>
+                                    <td class="left">STEL (ppm) Default 3X TLV 30 mins</td>
                                     <td class="right">{{stel}}</td>
                                 </tr>
                                 <tr class="odd">
-                                    <td class="left">Ceiling</td>
-                                    <td class="center">Default 5X TLV</td>
+                                    <td class="left">Ceiling (ppm) Default 5X TLV</td>
                                     <td class="right">{{ceiling}}</td>
                                 </tr>
                             </tbody>
@@ -115,33 +112,27 @@
 						<table class="elements" style="width: 100%;">
 							<tbody>
 								<tr class="odd">
-									<td class="left" style="width: 50%;">Saturation Concentration (ppm)</td>
-									<td class="center" style="width: 25%;">(vp/760)*10<sup>6</sup></td>
-									<td class="right" style="width: 25%;">{{saturationConcentration}}</td>
+									<td class="left" style="width: 50%;">Saturation Concentration (ppm) (vp/760)*10</td>
+									<td class="right" style="width: 50%;">{{saturationConcentration}}</td>
 								</tr>
 								<tr class="even">
-									<td class="left">Confined Space (ppm)</td>
-									<td class="center">0.1</td>
+									<td class="left">Confined Space (ppm) sat*0.1</td>
 									<td class="right">{{confinedSpace}}</td>
 								</tr>
 								<tr class="odd">
-									<td class="left">Poor - Limited Circulation (ppm)</td>
-									<td class="center">0.01</td>
+									<td class="left">Poor - Limited Circulation (ppm) sat*0.01</td>
 									<td class="right">{{poor}}</td>
 								</tr>
 								<tr class="even important">
-									<td class="left">Good - General ~ 6 air turnovers/hr (ppm)</td>
-									<td class="center">0.001</td>
+									<td class="left">Good - General ~ 6 air turnovers/hr (ppm) sat*0.001</td>
 									<td class="right">{{good}}</td>
 								</tr>
 								<tr class="odd">
-									<td class="left">Capture (ppm)</td>
-									<td class="center">0.0001</td>
+									<td class="left">Capture (ppm) sat*0.0001</td>
 									<td class="right">{{capture}}</td>
 								</tr>
 								<tr class="even">
-									<td class="left">Containment (ppm)</td>
-									<td class="center">0.000001</td>
+									<td class="left">Containment (ppm) sat*00001</td>
 									<td class="right">{{containment}}</td>
 								</tr>
 							</tbody>

@@ -78,6 +78,10 @@
 {
     return YES;
 }
+-(BOOL) calculate:(NSError**)err
+{
+    return YES;
+}
 
 -(BOOL) generateHtml:(NSString *__autoreleasing *)html error:(NSError *__autoreleasing *)err
 {

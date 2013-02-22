@@ -41,7 +41,7 @@
     [name setAutocapitalizationType:UITextAutocapitalizationTypeWords];
     QEntryElement* location = [[QEntryElement alloc] initWithTitle:@"Location" Value:nil];
     [location setKey:@"location"];
-    QDateTimeInlineElement* date = [[QDateTimeInlineElement alloc] initWithTitle:@"Date & Time" date:[NSDate date]];
+    QDateTimeInlineElement* date = [[QDateTimeInlineElement alloc] initWithTitle:@"Spill Date/Time" date:[NSDate date]];
     [date setKey:@"date"];
     
     [generalInfo addElement:name];
@@ -59,15 +59,18 @@
 
     [chemicalName setAutoCompleteColor:[UIColor autocompleteColor]];
     
-    QDecimalElement* vaporPressure = [[QDecimalElement alloc] initWithTitle:@"Vapor Pressure" value:0];
+    QDecimalElement* vaporPressure = [[QDecimalElement alloc] initWithTitle:@"Vapor Pressure (mm)" value:0];
     [vaporPressure setKey:@"vaporPressure"];
-    [vaporPressure setFractionDigits:1];
-    QDecimalElement* exposureLimit = [[QDecimalElement alloc] initWithTitle:@"Exposure Limit" value:0];
+//    [vaporPressure setFractionDigits:1];
+    QDecimalElement* exposureLimit = [[QDecimalElement alloc] initWithTitle:@"Exposure Limit (ppm)" value:0];
     [exposureLimit setKey:@"exposureLimit"];
-    QDecimalElement* stel = [[QDecimalElement alloc] initWithTitle:@"STEL" value:0];
+    [exposureLimit setFractionDigits:3];
+    QDecimalElement* stel = [[QDecimalElement alloc] initWithTitle:@"STEL (ppm)" value:0];
     [stel setKey:@"stel"];
-    QDecimalElement* ceiling = [[QDecimalElement alloc] initWithTitle:@"Ceiling" value:0];
+    [stel setFractionDigits:3];
+    QDecimalElement* ceiling = [[QDecimalElement alloc] initWithTitle:@"Ceiling (ppm)" value:0];
     [ceiling setKey:@"ceiling"];
+    [ceiling setFractionDigits:3];
     
     [chemicalInfo addElement:chemicalName];
     [chemicalInfo addElement:vaporPressure];
@@ -76,15 +79,40 @@
     [chemicalInfo addElement:ceiling];
     
     [root addSection:chemicalInfo];
+
+    
+    QSection* links = [[QSection alloc] initWithTitle:@"Links"];
+    QButtonElement* wiser = [[QButtonElement alloc] initWithTitle:@"WebWISER"]; //Vapor Pressure
+    wiser.controllerAction = @"onWiser";
+    QButtonElement* tlvs = [[QButtonElement alloc] initWithTitle:@"2005 TLVs (pdf)"]; //Exposure Limits
+    tlvs.controllerAction = @"onTlvs";
+    
+    [links addElement:wiser];
+    [links addElement:tlvs];
+    [root addSection:links];
     
     QSection* actions = [[QSection alloc] init];
     QButtonElement* calculate = [[QButtonElement alloc] initWithTitle:@"Calculate"];
+
     calculate.controllerAction = @"onCalculate";
+
     [actions addElement:calculate];
     
     [root addSection:actions];
     
     return root;
+}
+
+-(void)onWiser
+{
+    NSURL *url = [NSURL URLWithString:@"http://webwiser.nlm.nih.gov/knownSubstanceSearch.do"];
+    [[UIApplication sharedApplication] openURL:url];
+}
+
+-(void)onTlvs
+{
+    NSURL *url = [NSURL URLWithString:@"http://www.stps.gob.mx/DGIFT_STPS/PDF/2005TLVsBEIsofACGIHHandbook.pdf"];
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 - (void) onCalculate
@@ -114,6 +142,7 @@
     }
     WSHR10Report* report = [[WSHR10Report alloc] initWithFormData:[self formData]];
 
+    UILog(report.description);
     if ([self maintainHistory]) {
         [self addFormToHistory:form];
     }

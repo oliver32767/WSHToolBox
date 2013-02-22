@@ -68,6 +68,13 @@
 - (void) onSend
 {
     if ([MFMailComposeViewController canSendMail]) {
+#       ifdef DEBUG
+        UILog(@"HALP!");
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = [paths objectAtIndex:0];
+            NSString *path = [documentsDirectory stringByAppendingPathComponent:@"report2.html"];
+            [[self stringWithContentsOfWebView] writeToFile:path atomically:YES];
+#       endif
         MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
         controller.mailComposeDelegate = self;
         [controller setSubject: [self.report description]];

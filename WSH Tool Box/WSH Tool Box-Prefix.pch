@@ -30,6 +30,9 @@
 #endif
 
 #define LOGGING 1
+#define TESTING 1
+
+//#undef DEBUG
 
 #ifdef DEBUG
 #   ifdef LOGGING
@@ -43,6 +46,3 @@
 #   define NSLog(...)
 #   define UILog(...)
 #endif
-
-//#undef DEBUG
-#define TESTING 1
