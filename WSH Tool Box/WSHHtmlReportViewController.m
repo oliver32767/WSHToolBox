@@ -46,7 +46,7 @@
     self.webView.delegate = self;
     NSString* aReport = [[NSString alloc] init];
 
-    [self.report generateHtml:&aReport error:nil];
+    [self.report generateWebViewHtml:&aReport error:nil];
     [self.webView loadHTMLString:aReport baseURL:nil];
     
     [self applyMotif];
@@ -68,17 +68,21 @@
 - (void) onSend
 {
     if ([MFMailComposeViewController canSendMail]) {
+        NSString* emailReport;
+        [self.report generateEmailHtml:&emailReport error:nil];
+        
 #       ifdef DEBUG
-        UILog(@"HALP!");
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString *documentsDirectory = [paths objectAtIndex:0];
-            NSString *path = [documentsDirectory stringByAppendingPathComponent:@"report2.html"];
-            [[self stringWithContentsOfWebView] writeToFile:path atomically:YES];
+            NSString *path = [documentsDirectory stringByAppendingPathComponent:@"email_report.html"];
+            NSLog(@"Email report written to: %@", path);
+            [emailReport writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
 #       endif
+        
         MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
         controller.mailComposeDelegate = self;
         [controller setSubject: [self.report description]];
-        [controller setMessageBody:[self stringWithContentsOfWebView] isHTML:YES];
+        [controller setMessageBody:emailReport isHTML:YES];
         if (controller) [self presentModalViewController:controller animated:YES];
     } else {
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"No Mail Accounts"
