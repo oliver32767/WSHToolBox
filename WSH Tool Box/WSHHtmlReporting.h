@@ -21,6 +21,7 @@
 
 @protocol WSHHtmlReporting <NSObject>
 
--(BOOL) generateHtml:(NSString *__autoreleasing *)report error:(NSError *__autoreleasing *)err;
+-(BOOL) generateWebViewHtml:(NSString *__autoreleasing *)report error:(NSError *__autoreleasing *)err;
+-(BOOL) generateEmailHtml:(NSString *__autoreleasing *)report error:(NSError *__autoreleasing *)err;
 
 @end
