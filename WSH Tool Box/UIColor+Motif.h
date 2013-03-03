@@ -39,4 +39,6 @@
 
 +(UIColor*) autocompleteColor;
 
++(UIColor*) hilightButtonTextColor;
+
 @end

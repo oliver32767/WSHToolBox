@@ -23,12 +23,14 @@
 
 +(UIImage*) infoAccessory
 {
-    return [UIImage imageNamed:@"info_64.png"];
+//    return [UIImage imageNamed:@"info_64.png"];
+        return [UIImage imageNamed:@"help_64.png"];
 }
 
 +(UIImage*) submitAccessory
 {
     return [UIImage imageNamed:@"arrow_right_64.png"];
+
 }
 
 @end
