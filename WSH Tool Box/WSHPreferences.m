@@ -23,15 +23,15 @@
 
 @implementation WSHPreferences
 
-//+(void) initialize
-//{
-//    if (![[NSUserDefaults standardUserDefaults] boolForKey:UNIQUE_KEY]) {
-//        [self resetAllPreferences];
-//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UNIQUE_KEY];
-//    }
-//    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
-//}
++(void) initialize
+{
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:UNIQUE_KEY]) {
+        [self resetAllPreferences];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UNIQUE_KEY];
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
+}
 
 +(void)defaultsChanged
 {
@@ -40,8 +40,6 @@
 
 +(void) resetAllPreferences
 {
-    UILog(@"Resetting preferences!");
-//    NSLog(@"Resetting preferences!");
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     
