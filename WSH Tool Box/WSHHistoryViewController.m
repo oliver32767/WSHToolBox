@@ -118,7 +118,9 @@
         cell.textLabel.text = @"Report";
     }
     
-    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:form.timestamp];
+    cell.detailTextLabel.text = [NSString stringWithFormat:
+         @"Created: %@",
+        [self.dateFormatter stringFromDate:form.timestamp]];
 
     return cell;
 }
