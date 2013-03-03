@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4015AE0116E3E3BE006CAFBD /* R10EmailReportTemplate.html in Resources */ = {isa = PBXBuildFile; fileRef = 4015AE0016E3E3BE006CAFBD /* R10EmailReportTemplate.html */; };
 		401DFA0E16D8173D00B81957 /* alarm_24.png in Resources */ = {isa = PBXBuildFile; fileRef = 401DF85316D8173C00B81957 /* alarm_24.png */; };
 		401DFA0F16D8173D00B81957 /* alarm_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 401DF85416D8173C00B81957 /* alarm_48.png */; };
 		401DFA1016D8173D00B81957 /* alarm_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 401DF85516D8173C00B81957 /* alarm_64.png */; };
@@ -493,7 +494,6 @@
 		40391DCD16CE4E38000F0D55 /* McTemplateRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 40391DCC16CE4E37000F0D55 /* McTemplateRenderer.m */; };
 		40391DD016CE5286000F0D55 /* WSHDebugFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40391DCF16CE5285000F0D55 /* WSHDebugFormViewController.m */; };
 		4055AC7D16CFA62100A14763 /* icon-source.png in Resources */ = {isa = PBXBuildFile; fileRef = 4055AC7C16CFA62100A14763 /* icon-source.png */; };
-		4055AC8116CFA63C00A14763 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4055AC7E16CFA63C00A14763 /* Default-568h@2x.png */; };
 		4055AC8216CFA63C00A14763 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4055AC7F16CFA63C00A14763 /* Default.png */; };
 		4055AC8316CFA63C00A14763 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4055AC8016CFA63C00A14763 /* Default@2x.png */; };
 		4055AC8616D04DE500A14763 /* WSHPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 4055AC8516D04DE500A14763 /* WSHPreferences.m */; };
@@ -558,6 +558,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4015AE0016E3E3BE006CAFBD /* R10EmailReportTemplate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = R10EmailReportTemplate.html; sourceTree = "<group>"; };
 		401DF85316D8173C00B81957 /* alarm_24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarm_24.png; sourceTree = "<group>"; };
 		401DF85416D8173C00B81957 /* alarm_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarm_48.png; sourceTree = "<group>"; };
 		401DF85516D8173C00B81957 /* alarm_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarm_64.png; sourceTree = "<group>"; };
@@ -1063,7 +1064,6 @@
 		40391DCE16CE5285000F0D55 /* WSHDebugFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSHDebugFormViewController.h; sourceTree = "<group>"; };
 		40391DCF16CE5285000F0D55 /* WSHDebugFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSHDebugFormViewController.m; sourceTree = "<group>"; };
 		4055AC7C16CFA62100A14763 /* icon-source.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-source.png"; sourceTree = "<group>"; };
-		4055AC7E16CFA63C00A14763 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4055AC7F16CFA63C00A14763 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4055AC8016CFA63C00A14763 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4055AC8416D04DE400A14763 /* WSHPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSHPreferences.h; sourceTree = "<group>"; };
@@ -1133,6 +1133,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4015ADFE16E3D666006CAFBD /* Forms */ = {
+			isa = PBXGroup;
+			children = (
+				40391D5516CC94A1000F0D55 /* WSHR10FormViewController.h */,
+				40391D5616CC94A1000F0D55 /* WSHR10FormViewController.m */,
+				40391DAE16CD97EE000F0D55 /* WSHFormViewController.h */,
+				40391DAF16CD97EE000F0D55 /* WSHFormViewController.m */,
+				40391DCE16CE5285000F0D55 /* WSHDebugFormViewController.h */,
+				40391DCF16CE5285000F0D55 /* WSHDebugFormViewController.m */,
+			);
+			name = Forms;
+			sourceTree = "<group>";
+		};
 		401DF85216D8173C00B81957 /* TWG Retina Icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -1608,7 +1621,6 @@
 			isa = PBXGroup;
 			children = (
 				401DF85216D8173C00B81957 /* TWG Retina Icons */,
-				4055AC7E16CFA63C00A14763 /* Default-568h@2x.png */,
 				4055AC7F16CFA63C00A14763 /* Default.png */,
 				4055AC8016CFA63C00A14763 /* Default@2x.png */,
 				4055AC7C16CFA62100A14763 /* icon-source.png */,
@@ -1631,7 +1643,9 @@
 		4023880516CF183F00314BCF /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				40391D6916CCAA2A000F0D55 /* AboutText.txt */,
 				40391D7E16CCE219000F0D55 /* R10ReportTemplate.html */,
+				4015AE0016E3E3BE006CAFBD /* R10EmailReportTemplate.html */,
 			);
 			name = Templates;
 			sourceTree = "<group>";
@@ -1650,9 +1664,8 @@
 		40391D4F16CC9350000F0D55 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4015ADFE16E3D666006CAFBD /* Forms */,
 				4023880216CF17BA00314BCF /* Interfaces */,
-				40391D5516CC94A1000F0D55 /* WSHR10FormViewController.h */,
-				40391D5616CC94A1000F0D55 /* WSHR10FormViewController.m */,
 				40391D5D16CC9E15000F0D55 /* WSHMenuPanelViewController.h */,
 				40391D5E16CC9E15000F0D55 /* WSHMenuPanelViewController.m */,
 				40391D6216CCA8C4000F0D55 /* WSHAboutViewController.h */,
@@ -1661,10 +1674,6 @@
 				40391D7616CCCC97000F0D55 /* WSHHtmlReportViewController.m */,
 				40391D9416CD51BD000F0D55 /* WSHHistoryViewController.h */,
 				40391D9516CD51BE000F0D55 /* WSHHistoryViewController.m */,
-				40391DAE16CD97EE000F0D55 /* WSHFormViewController.h */,
-				40391DAF16CD97EE000F0D55 /* WSHFormViewController.m */,
-				40391DCE16CE5285000F0D55 /* WSHDebugFormViewController.h */,
-				40391DCF16CE5285000F0D55 /* WSHDebugFormViewController.m */,
 				4023881B16CF434800314BCF /* WSHFeedbackViewController.h */,
 				4023881C16CF434800314BCF /* WSHFeedbackViewController.m */,
 				4084FA2516D19CD500D8CC28 /* WSHPreferencesViewController.h */,
@@ -1782,7 +1791,6 @@
 				4070BFE516CC8F5C00BF46C5 /* InfoPlist.strings */,
 				4070BFE816CC8F5C00BF46C5 /* main.m */,
 				4070BFEA16CC8F5C00BF46C5 /* WSH Tool Box-Prefix.pch */,
-				40391D6916CCAA2A000F0D55 /* AboutText.txt */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1947,7 +1955,6 @@
 				4023885E16CF7B2500314BCF /* Icon.png in Resources */,
 				4023886016CF7B2E00314BCF /* Icon@2x.png in Resources */,
 				4055AC7D16CFA62100A14763 /* icon-source.png in Resources */,
-				4055AC8116CFA63C00A14763 /* Default-568h@2x.png in Resources */,
 				4055AC8216CFA63C00A14763 /* Default.png in Resources */,
 				4055AC8316CFA63C00A14763 /* Default@2x.png in Resources */,
 				401DFA0E16D8173D00B81957 /* alarm_24.png in Resources */,
@@ -2393,6 +2400,7 @@
 				401DFBC616D8173D00B81957 /* zoom_out_24.png in Resources */,
 				401DFBC716D8173D00B81957 /* zoom_out_48.png in Resources */,
 				401DFBC816D8173D00B81957 /* zoom_out_64.png in Resources */,
+				4015AE0116E3E3BE006CAFBD /* R10EmailReportTemplate.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2524,7 +2532,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2538,14 +2546,17 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Oliver Bartley";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: Oliver Bartley";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "79EAB51B-47A9-4E4C-A1B3-7210206A053C";
+				"PROVISIONING_PROFILE[sdk=*]" = "79EAB51B-47A9-4E4C-A1B3-7210206A053C";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
