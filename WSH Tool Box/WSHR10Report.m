@@ -52,12 +52,21 @@
     return YES;
 }
 
--(BOOL) generateHtml:(NSString *__autoreleasing *)report error:(NSError *__autoreleasing *)err
+-(BOOL) generateWebViewHtml:(NSString *__autoreleasing *)report error:(NSError *__autoreleasing *)err
 {
     if (![self calculate:err]) {
         return NO;
     }
     *report = [McTemplateRenderer render:self.dictionaryWithStringsForObjects withResourceFileTemplate:@"R10ReportTemplate.html"];
+    return YES;
+}
+
+-(BOOL) generateEmailHtml:(NSString *__autoreleasing *)report error:(NSError *__autoreleasing *)err
+{
+    if (![self calculate:err]) {
+        return NO;
+    }
+    *report = [McTemplateRenderer render:self.dictionaryWithStringsForObjects withResourceFileTemplate:@"R10EmailReportTemplate.html"];
     return YES;
 }
 
