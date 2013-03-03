@@ -1,0 +1,101 @@
+<html>
+	<head>
+		<title>{{_title}}</title>
+	</head>
+    <style type="text/css">
+        body {font-family: "helvetica"; font-size:1em}
+        table {border-collapse:collapse;}
+            
+        .header td, .header th
+            {border-bottom: 1px solid black !important;}
+        
+        .left {padding-left:1em; text-align:left; font-size:0.75em}
+        .center {text-align:center; font-size:0.75em}
+        .right {padding-right:0.25em; text-align:right;}
+        
+        </style>
+	<body>
+        <table class="section" style="width: 100%;">
+            <tbody>
+                <tr class="header">
+                    <td class="title" style="width:66%">General Information</td>
+                    <td class="title"></td>
+                </tr>
+                <tr class="odd">
+                    <td class="left">Name</td>
+                    <td class="right">{{name}}</td>
+                </tr>
+                <tr class="even">
+                    <td class="left">Location</td>
+                    <td class="right">{{location}}</td>
+                </tr>
+                <tr class="odd">
+                    <td class="left">Spill Date/Time</td>
+                    <td class="right">{{date}}</td>
+                </tr>
+                
+                
+                <tr class="header">
+                    <td class="title">Chemical Information</td>
+                    <td class="title"></td>
+                </tr>
+                <tr class="odd">
+                    <td class="left">Chemical Name</td>
+                    <td class="right">{{chemicalName}}</td>
+                </tr>
+                <tr class="even">
+                    <td class="left">Pure Compound Vapor Pressure (mm)</td>
+                    <td class="right">{{vaporPressure}}</td>
+                </tr>
+
+                
+                <tr class="header">
+                    <td class="title">Exposure Limits</td>
+                    <td class="title"></td>
+                </tr>
+                <tr class="odd">
+                    <td class="left" style="width: 50%;">8 hr Exposure Limit (ppm)</td>
+                    <td class="right" style="width: 50%;">{{exposureLimit}}</td>
+                </tr>
+                <tr class="even">
+                    <td class="left">STEL (ppm) Default 3X TLV 30 mins</td>
+                    <td class="right">{{stel}}</td>
+                </tr>
+                <tr class="odd">
+                    <td class="left">Ceiling (ppm) Default 5X TLV</td>
+                    <td class="right">{{ceiling}}</td>
+                </tr>
+
+                
+                <tr class="header">
+                    <td class="title">Steady State</td>
+                    <td class="title"></td>
+                </tr>
+                <tr class="odd">
+                    <td class="left" style="width: 50%;">Saturation Concentration (ppm) (vp/760)*10</td>
+                    <td class="right" style="width: 50%;">{{saturationConcentration}}</td>
+                </tr>
+                <tr class="even">
+                    <td class="left">Confined Space (ppm) sat*0.1</td>
+                    <td class="right">{{confinedSpace}}</td>
+                </tr>
+                <tr class="odd">
+                    <td class="left">Poor - Limited Circulation (ppm) sat*0.01</td>
+                    <td class="right">{{poor}}</td>
+                </tr>
+                <tr class="even important">
+                    <td class="left">Good - General ~ 6 air turnovers/hr (ppm) sat*0.001</td>
+                    <td class="right">{{good}}</td>
+                </tr>
+                <tr class="odd">
+                    <td class="left">Capture (ppm) sat*0.0001</td>
+                    <td class="right">{{capture}}</td>
+                </tr>
+                <tr class="even">
+                    <td class="left">Containment (ppm) sat*00001</td>
+                    <td class="right">{{containment}}</td>
+                </tr>
+			</tbody>
+		</table>
+    </body>
+</html>
