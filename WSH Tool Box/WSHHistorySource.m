@@ -49,7 +49,7 @@
 }
 -(id)initWithArchiveWithKey:(NSString*)key
 {
-    _archiveKey = key;
+    _archiveKey = [NSString stringWithString:key];
     return [self initWithArchive:[WSHPreferences formDataArchiveWithKey:key]];
 }
 
@@ -59,6 +59,7 @@
 }
 -(void)saveToArchiveForKey:(NSString*)key
 {
+    _archiveKey = [NSString stringWithString:key];
     NSData* archive = [self archive];
     [WSHPreferences setFormDataArchive:archive forKey:key];
 }

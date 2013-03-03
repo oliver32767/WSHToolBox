@@ -23,7 +23,7 @@
 @interface WSHHistorySource : NSObject <UITableViewDataSource>
 
 @property NSString* title;
-@property (readonly) NSString* archiveKey;
+@property (readonly, copy) NSString* archiveKey;
 
 -(id)init;
 //-(id)initWithArchive:(NSData*)archive;
