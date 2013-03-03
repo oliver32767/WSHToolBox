@@ -22,10 +22,10 @@
 
 @implementation WSHDebugReport
 
--(BOOL) generateHtml:(NSString *__autoreleasing *)report error:(NSError *__autoreleasing *)err
+-(BOOL) generateWebViewHtml:(NSString *__autoreleasing *)report error:(NSError *__autoreleasing *)err
 {
     NSLog(@"Generating report");
-    return [super generateHtml:report error:err];
+    return [super generateWebViewHtml:report error:err];
 }
 
 @end
