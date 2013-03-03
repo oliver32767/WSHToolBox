@@ -81,19 +81,20 @@
     [root addSection:chemicalInfo];
 
     
-    QSection* links = [[QSection alloc] initWithTitle:@"Links"];
-    QButtonElement* wiser = [[QButtonElement alloc] initWithTitle:@"WebWISER"]; //Vapor Pressure
-    wiser.controllerAction = @"onWiser";
-    QButtonElement* tlvs = [[QButtonElement alloc] initWithTitle:@"2005 TLVs (pdf)"]; //Exposure Limits
-    tlvs.controllerAction = @"onTlvs";
-    
-    [links addElement:wiser];
-    [links addElement:tlvs];
-    [root addSection:links];
+//    QSection* links = [[QSection alloc] initWithTitle:@"Links"];
+//    QButtonElement* wiser = [[QButtonElement alloc] initWithTitle:@"WebWISER"]; //Vapor Pressure
+//    wiser.controllerAction = @"onWiser";
+//    QButtonElement* tlvs = [[QButtonElement alloc] initWithTitle:@"2005 TLVs (pdf)"]; //Exposure Limits
+//    tlvs.controllerAction = @"onTlvs";
+//    
+//    [links addElement:wiser];
+//    [links addElement:tlvs];
+//    [root addSection:links];
     
     QSection* actions = [[QSection alloc] init];
     QButtonElement* calculate = [[QButtonElement alloc] initWithTitle:@"Calculate"];
-
+    calculate.key = @"calculate";
+    
     calculate.controllerAction = @"onCalculate";
 
     [actions addElement:calculate];
@@ -103,23 +104,11 @@
     return root;
 }
 
--(void)onWiser
-{
-    NSURL *url = [NSURL URLWithString:@"http://webwiser.nlm.nih.gov/knownSubstanceSearch.do"];
-    [[UIApplication sharedApplication] openURL:url];
-}
-
--(void)onTlvs
-{
-    NSURL *url = [NSURL URLWithString:@"http://www.stps.gob.mx/DGIFT_STPS/PDF/2005TLVsBEIsofACGIHHandbook.pdf"];
-    [[UIApplication sharedApplication] openURL:url];
-}
-
 - (void) onCalculate
 {
     WSHFormData* form = [self formData];
     
-    form.title = @"Rule of Ten";
+    [form setTitle:@"Rule of Ten"];
     
     NSString* subtitle = @"";
     if ([form objectForKey:@"location"]) {
@@ -130,8 +119,8 @@
     if ([form objectForKey:@"chemicalName"] && [(NSString*) [form objectForKey:@"chemicalName"] length] > 0) {
         subtitle = [NSString stringWithFormat: @"%@ - %@", subtitle, [form objectForKey:@"chemicalName"]];
     }
-    
-    form.subtitle = subtitle;
+
+    [form setSubtitle:subtitle];
     
     if ([form objectForKey:@"name"]) {
         [WSHPreferences setDefaultFieldValue:[form objectForKey:@"name"] forKey:@"name"];
@@ -140,14 +129,40 @@
     if ([form objectForKey:@"chemicalName"]) {
         [WSHPreferences addAutocompleteValue:[form objectForKey:@"chemicalName"] forValuesWithKey:@"chemicalName"];
     }
-    WSHR10Report* report = [[WSHR10Report alloc] initWithFormData:[self formData]];
-
-    UILog(report.description);
+    WSHR10Report* report = [[WSHR10Report alloc] initWithFormData:form];
+    
     if ([self maintainHistory]) {
         [self addFormToHistory:form];
     }
     [self showHtmlReport:report];
 
+}
+
+-(void) onVaporPressureInfo:(id)sender
+{
+    NSURL* url = [NSURL URLWithString:@"http://webwiser.nlm.nih.gov/knownSubstanceSearch.do"];
+    [[UIApplication sharedApplication] openURL:url];
+}
+-(void) onExposureLimitInfo:(id)sender
+{
+    NSURL* url = [NSURL URLWithString:@"http://www.stps.gob.mx/DGIFT_STPS/PDF/2005TLVsBEIsofACGIHHandbook.pdf"];
+    [[UIApplication sharedApplication] openURL:url];
+}
+
+-(void) cell:(UITableViewCell *)cell willAppearForElement:(QElement *)element atIndexPath:(NSIndexPath *)indexPath
+{
+    if ([element.key isEqualToString:@"calculate"]) {
+        cell.textLabel.textColor = [UIColor hilightButtonTextColor];
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    } else if ([element.key isEqualToString:@"vaporPressure"]) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeInfoDark];
+        [button addTarget:self action:@selector(onVaporPressureInfo:) forControlEvents:UIControlEventTouchUpInside];
+        cell.accessoryView = button;
+    } else if ([element.key isEqualToString:@"exposureLimit"]) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeInfoDark];
+        [button addTarget:self action:@selector(onExposureLimitInfo:) forControlEvents:UIControlEventTouchUpInside];
+        cell.accessoryView = button;
+    }
 }
 
 

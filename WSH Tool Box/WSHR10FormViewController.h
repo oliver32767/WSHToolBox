@@ -18,7 +18,8 @@
 
 
 #import "WSHFormViewController.h"
+#import "QuickDialogStyleProvider.h"
 
-@interface WSHR10FormViewController : WSHFormViewController
+@interface WSHR10FormViewController : WSHFormViewController <QuickDialogStyleProvider>
 
 @end
