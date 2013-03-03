@@ -82,8 +82,9 @@
 
 -(void) onAccessory:(id)sender
 {
-
-    WSHInfoViewController* viewController = [[WSHInfoViewController alloc] init];
+    //NSString* URL = @"http://www.stps.gob.mx/DGIFT_STPS/PDF/2005TLVsBEIsofACGIHHandbook.pdf"
+    NSString* URL = @"http://webwiser.nlm.nih.gov/knownSubstanceSearch.do";
+    WSHInfoViewController* viewController = [[WSHInfoViewController alloc] initWithURLString:URL];
     [self.navigationController pushViewController:viewController animated:YES];
     
 }
@@ -99,7 +100,7 @@
 
 -(void) cell:(UITableViewCell *)cell willAppearForElement:(QElement *)element atIndexPath:(NSIndexPath *)indexPath
 {
-    if (element.key == @"calculate") {
+    if ([element.key isEqualToString:@"calculate"]) {
 //        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 //        [button setImage:[UIImage submitAccessory] forState:UIControlStateNormal];
 //        button.frame = CGRectMake(0, 0, 24, 24);
@@ -107,10 +108,10 @@
 //        cell.accessoryView = button;
 
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-    } else if (element.key == @"vaporPressure") {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setImage:[UIImage infoAccessory] forState:UIControlStateNormal];
-        button.frame = CGRectMake(0, 0, 24, 24);
+    } else if ([element.key isEqualToString:@"vaporPressure"]) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeInfoDark];
+        //[button setImage:[UIImage infoAccessory] forState:UIControlStateNormal];
+        //button.frame = CGRectMake(0, 0, 24, 24);
         [button addTarget:self action:@selector(onAccessory:) forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = button;
     }
