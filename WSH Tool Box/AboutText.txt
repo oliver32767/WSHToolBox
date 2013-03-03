@@ -1,4 +1,4 @@
-WSH Tool Box
+WSH Tool Box ({{versionBuild}})
 Copyright 2013 Oliver Bartley
 github.com/oliver32767/WSHToolBox
 
