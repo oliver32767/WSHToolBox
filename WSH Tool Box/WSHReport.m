@@ -52,26 +52,27 @@
     self = [self init];
     if (self) {
         _formData = data;
+        NSLog(@"%@ - %@", data.title, data.subtitle);
     }
     return self;
 }
 
 -(NSString*)title
 {
-    return [self.formData objectForKey:TITLE_KEY];
+    return [self.formData title];
 }
 -(void)setTitle:(NSString *)title
 {
-    [self.formData setObject:[title copy] forKey:TITLE_KEY];
+    [self.formData setTitle:title];
 }
 
 -(NSString*)subtitle
 {
-    return [self.formData objectForKey:SUBTITLE_KEY];
+    return [self.formData subtitle];
 }
 -(void)setSubtitle:(NSString *)subtitle
 {
-    [self.formData setObject:[subtitle copy] forKey:SUBTITLE_KEY];
+    [self.formData setSubtitle:subtitle];
 }
 
 -(BOOL) validateData:(NSError *__autoreleasing *)err
@@ -83,7 +84,7 @@
     return YES;
 }
 
--(BOOL) generateHtml:(NSString *__autoreleasing *)html error:(NSError *__autoreleasing *)err
+-(BOOL) generateWebViewHtml:(NSString *__autoreleasing *)html error:(NSError *__autoreleasing *)err
 {
     NSString* template = @"<html><head><title>{{_title||Untitled Report}}</title></head><body><p style=\"text-align:center;\">{{_title||Default Report}}<br/>{{_subtitle||}}</p><table style=\"width:100%;\"><tbody><tr><td style=\"width:50%; text-align:right;\">key</td><td style=\"width:50%;\">value</td></tr>";
     
@@ -98,6 +99,10 @@
     
     *html = [McTemplateRenderer render:self.dictionaryWithStringsForObjects withTemplate:template];
     return YES;
+}
+-(BOOL) generateEmailHtml:(NSString *__autoreleasing *)report error:(NSError *__autoreleasing *)err
+{
+    return [self generateWebViewHtml:report error:err];
 }
 
 - (NSDictionary*) dictionaryWithStringsForObjects
@@ -125,9 +130,7 @@
 
 -(NSString*) description
 {
-    NSString* aTitle = (self.title) ? self.title : @"Untitled Report";
-    NSString* aSubtitle = (self.subtitle) ? [NSString stringWithFormat:@" - %@", self.subtitle] : @"";
-    return [NSString stringWithFormat:@"%@%@", aTitle, aSubtitle];
+    return _formData.description;
 }
 
 @end

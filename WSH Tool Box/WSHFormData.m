@@ -82,12 +82,7 @@
 
 - (void)setObject:(id)anObject forKey:(id < NSCopying >)aKey
 {
-    if (!anObject) {
-        [_data setObject:@"" forKey:aKey];
-        NSLog(@"Not An Object:%@ forKey:%@", anObject, aKey);
-    } else {
-        [_data setObject:anObject forKey:aKey];
-    }
+    [_data setObject:anObject forKey:aKey];
 
 }
 - (void)removeObjectForKey:(id)aKey
@@ -114,7 +109,7 @@
 }
 -(void) setTitle:(NSString*)title
 {
-    [self setObject:[title copy] forKey:TITLE_KEY];
+    [self setObject:title forKey:TITLE_KEY];
 }
 -(NSString*)subtitle
 {
@@ -122,7 +117,7 @@
 }
 -(void)setSubtitle:(NSString*)subtitle
 {
-    [self setObject:[subtitle copy] forKey:SUBTITLE_KEY];
+    [self setObject:subtitle forKey:SUBTITLE_KEY];
 }
 
 -(NSString*) description

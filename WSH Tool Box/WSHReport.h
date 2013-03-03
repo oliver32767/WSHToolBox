@@ -40,6 +40,4 @@
 -(BOOL)validateData:(NSError**)err;
 -(BOOL) calculate:(NSError**)err;
 
-
-
 @end
