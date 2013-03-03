@@ -27,6 +27,7 @@
     #import <QuartzCore/QuartzCore.h>
     #import "TestFlight.h"
     #import "UIColor+Motif.h"
+    #import "UIImage+Motif.h"
 #endif
 
 #define LOGGING 1
