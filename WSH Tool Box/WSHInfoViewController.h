@@ -18,6 +18,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WSHInfoViewController : UIViewController
+@interface WSHInfoViewController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate>
+
+-(id)initWithURLString:(NSString*)URL;
 
 @end
