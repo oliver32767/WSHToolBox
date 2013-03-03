@@ -60,7 +60,7 @@
     
     [WSHPreferences removeFormDataArchiveForKey:archiveKey];
     
-    WSHHistorySource* hist = [[WSHHistorySource alloc] init];
+    WSHHistorySource* hist = [[WSHHistorySource alloc] initWithArchiveWithKey:archiveKey];
     
     
 
