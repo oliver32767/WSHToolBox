@@ -18,6 +18,8 @@
 
 
 #import "WSHAboutViewController.h"
+#import "McTemplateRenderer.h"
+
 #define TEXTFIELD_TAG 1
 #define ICON_TAG 2
 #define BUTTON_TAG 3
@@ -76,7 +78,11 @@
     NSString* fileContents =
     [NSString stringWithContentsOfFile:fn
                               encoding:NSUTF8StringEncoding error:&error];
-    textView.text = fileContents;
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:[self versionBuild] forKey:@"versionBuild"];
+    NSString* aboutText = [McTemplateRenderer render:dict withTemplate:fileContents];
+    
+    textView.text = aboutText;
 
     [self applyMotif];
 }
@@ -89,6 +95,29 @@
     [TestFlight passCheckpoint:@"About icon clicked."];
 }
 
+- (NSString *) appVersion
+{
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+}
+
+- (NSString *) build
+{
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
+}
+
+- (NSString *) versionBuild
+{
+    NSString * version = [self appVersion];
+    NSString * build = [self build];
+    
+    NSString * versionBuild = [NSString stringWithFormat: @"v%@", version];
+    
+    if (![version isEqualToString: build]) {
+        versionBuild = [NSString stringWithFormat: @"%@.%@", versionBuild, build];
+    }
+    
+    return versionBuild;
+}
 
 - (void)didReceiveMemoryWarning
 {
