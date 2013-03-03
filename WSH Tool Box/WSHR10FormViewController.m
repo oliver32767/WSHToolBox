@@ -39,8 +39,11 @@
     QEntryElement* name = [[QEntryElement alloc] initWithTitle:@"Name" Value:[WSHPreferences defaultFieldValueWithKey:@"name"] Placeholder:nil];
     [name setKey:@"name"];
     [name setAutocapitalizationType:UITextAutocapitalizationTypeWords];
+    [name setAutocorrectionType:UITextAutocorrectionTypeNo];
     QEntryElement* location = [[QEntryElement alloc] initWithTitle:@"Location" Value:nil];
     [location setKey:@"location"];
+    [location setAutocapitalizationType:UITextAutocapitalizationTypeSentences];
+    
     QDateTimeInlineElement* date = [[QDateTimeInlineElement alloc] initWithTitle:@"Spill Date/Time" date:[NSDate date]];
     [date setKey:@"date"];
     
@@ -56,7 +59,8 @@
     QAutoEntryElement* chemicalName = [[QAutoEntryElement alloc] initWithTitle:@"Chemical Name" Value:nil Placeholder:nil];
     [chemicalName setKey:@"chemicalName"];
     [chemicalName setAutoCompleteValues:[WSHPreferences autocompleteValuesWithKey:@"chemicalName"]];
-
+    [chemicalName setAutocapitalizationType:UITextAutocapitalizationTypeWords];
+    [chemicalName setAutocorrectionType:UITextAutocorrectionTypeNo];
     [chemicalName setAutoCompleteColor:[UIColor autocompleteColor]];
     
     QDecimalElement* vaporPressure = [[QDecimalElement alloc] initWithTitle:@"Vapor Pressure (mm)" value:0];
