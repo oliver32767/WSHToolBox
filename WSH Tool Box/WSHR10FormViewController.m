@@ -95,10 +95,15 @@
 //    [links addElement:tlvs];
 //    [root addSection:links];
     
+    
     QSection* actions = [[QSection alloc] init];
+    
+    QRadioElement* reportStyle = [[QRadioElement alloc] initWithItems:@[@"Standard", @"Compact"] selected:0 title:@"Report Style"];
+    reportStyle.key = @"reportStyle";
+    [actions addElement:reportStyle];
+    
     QButtonElement* calculate = [[QButtonElement alloc] initWithTitle:@"Calculate"];
     calculate.key = @"calculate";
-    
     calculate.controllerAction = @"onCalculate";
 
     [actions addElement:calculate];
@@ -134,6 +139,8 @@
         [WSHPreferences addAutocompleteValue:[form objectForKey:@"chemicalName"] forValuesWithKey:@"chemicalName"];
     }
     WSHR10Report* report = [[WSHR10Report alloc] initWithFormData:form];
+    
+    NSLog(@"reportStyle: %@",[form objectForKey:@"reportStyle"]);
     
     if ([self maintainHistory]) {
         [self addFormToHistory:form];

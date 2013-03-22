@@ -74,14 +74,20 @@
         } else if ([element isKindOfClass:[QDateTimeInlineElement class]]) {
             
             [(QDateTimeInlineElement*) element setDateValue:[formData objectForKey:key]];
+            
+        } else if ([element isKindOfClass: [QRadioElement class]]) {
+            [(QRadioElement*) element setSelectedValue:[formData objectForKey:key]];
+            
         } else if ([element isKindOfClass: [QEntryElement class]] ||
                    [element isKindOfClass: [QAutoEntryElement class]]) {
+            // this clause should probalby stay last, as it's a common superclass
             [element setTextValue:[formData objectForKey:key]];
-            
+
         } else {
             [element setValue:[formData objectForKey:key]];
         }
     }
+    [self.quickDialogTableView reloadData];
     return root;
 }
 
@@ -118,11 +124,11 @@
     [self setRoot:[self createRootElementWithFormData:formData]];
 }
 
+
 -(WSHFormData*) formData;
 {
     WSHFormData* rv = [[WSHFormData alloc] init];
     [rv setTitle:self.title];
-//    [rv setSubtitle:@"WAT"];
     NSEnumerator* k = [[self.root allElementKeys] objectEnumerator];
 
     NSString* key = nil;
@@ -137,11 +143,17 @@
             
         } else if ([element isKindOfClass:[QDateTimeInlineElement class]]) {
             obj = [(QDateTimeInlineElement*) element dateValue];
+
+            
+        } else if ([element isKindOfClass:[QRadioElement class]]) {
+            obj = [NSNumber numberWithInt:[(QRadioElement*) element selected]];
             
         } else if ([element isKindOfClass: [QEntryElement class]] ||
                    [element isKindOfClass: [QAutoEntryElement class]]) {
+            // this clause should probably come last because QEntryElement is a pretty common super class among
+            // Dialog elements
             obj = [element textValue];
-            
+
         } else {
             obj = [element value];
         }

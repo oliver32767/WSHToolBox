@@ -144,7 +144,7 @@
 
 +(UIColor*) hilightButtonTextColor
 {
-    return [UIColor colorWithRed:0.0f green:0.25f blue:0.0f alpha:1.0f];
+    return [UIColor colorWithRed:0.0f green:0.5f blue:0.0f alpha:1.0f];
 }
 
 @end

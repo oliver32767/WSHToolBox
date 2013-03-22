@@ -57,7 +57,14 @@
     if (![self calculate:err]) {
         return NO;
     }
-    *report = [McTemplateRenderer render:self.dictionaryWithStringsForObjects withResourceFileTemplate:@"R10ReportTemplate.html"];
+    if ([self.formData objectForKey:@"reportStyle"] == 0) {
+        // standard
+        *report = [McTemplateRenderer render:self.dictionaryWithStringsForObjects withResourceFileTemplate:@"R10ReportTemplate.html"];
+    } else {
+        // compact
+        *report = [McTemplateRenderer render:self.dictionaryWithStringsForObjects withResourceFileTemplate:@"R10ReportTemplateCompact.html"];
+    }
+
     return YES;
 }
 
@@ -66,7 +73,13 @@
     if (![self calculate:err]) {
         return NO;
     }
-    *report = [McTemplateRenderer render:self.dictionaryWithStringsForObjects withResourceFileTemplate:@"R10EmailReportTemplate.html"];
+    if ([self.formData objectForKey:@"reportStyle"] == 0) {
+        // standard
+        *report = [McTemplateRenderer render:self.dictionaryWithStringsForObjects withResourceFileTemplate:@"R10EmailReportTemplate.html"];
+    } else {
+        // compact
+        *report = [McTemplateRenderer render:self.dictionaryWithStringsForObjects withResourceFileTemplate:@"R10EmailReportTemplateCompact.html"];
+    }
     return YES;
 }
 
