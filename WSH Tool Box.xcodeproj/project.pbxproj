@@ -76,6 +76,7 @@
 		4070C02B16CC919600BF46C5 /* UIViewController+JASidePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4070C02916CC919600BF46C5 /* UIViewController+JASidePanel.m */; };
 		4070C02D16CC91AF00BF46C5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4070C02C16CC91AF00BF46C5 /* QuartzCore.framework */; };
 		4084FA2716D19CD500D8CC28 /* WSHPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4084FA2616D19CD500D8CC28 /* WSHPreferencesViewController.m */; };
+		40FE122616FF929A00131534 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40FE122516FF929900131534 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -217,6 +218,7 @@
 		4084FA2516D19CD500D8CC28 /* WSHPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSHPreferencesViewController.h; sourceTree = "<group>"; };
 		4084FA2616D19CD500D8CC28 /* WSHPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSHPreferencesViewController.m; sourceTree = "<group>"; };
 		4084FA2816D1C10300D8CC28 /* WSHHistorySourceDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WSHHistorySourceDelegate.h; sourceTree = "<group>"; };
+		40FE122516FF929900131534 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +289,7 @@
 		4023880416CF183200314BCF /* Artwork */ = {
 			isa = PBXGroup;
 			children = (
+				40FE122516FF929900131534 /* Default-568h@2x.png */,
 				4055AC7F16CFA63C00A14763 /* Default.png */,
 				4055AC8016CFA63C00A14763 /* Default@2x.png */,
 				4055AC7C16CFA62100A14763 /* icon-source.png */,
@@ -628,6 +631,7 @@
 				4015AE0116E3E3BE006CAFBD /* R10EmailReportTemplate.html in Resources */,
 				400441F016FCF1FB00CD1807 /* R10ReportTemplateCompact.html in Resources */,
 				400441F316FCFB6E00CD1807 /* R10EmailReportTemplateCompact.html in Resources */,
+				40FE122616FF929A00131534 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -813,6 +817,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Oliver Bartley (Q765T8H4BZ)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Oliver Bartley (Q765T8H4BZ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WSH Tool Box/WSH Tool Box-Prefix.pch";
 				INFOPLIST_FILE = "WSH Tool Box/WSH Tool Box-Info.plist";
@@ -823,6 +829,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "B9C1B1BE-2514-4CDD-9751-ED096FE00D33";
+				"PROVISIONING_PROFILE[sdk=*]" = "B9C1B1BE-2514-4CDD-9751-ED096FE00D33";
 				TEST_AFTER_BUILD = YES;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/QuickDialog\"/**";
 				WRAPPER_EXTENSION = app;
