@@ -57,14 +57,11 @@
     if (![self calculate:err]) {
         return NO;
     }
-    NSLog(@"reportStyle == 0 %s", ([[self.formData objectForKey:@"reportStyle"] integerValue] == 0) ? "true" : "false");
     if ([[self.formData objectForKey:@"reportStyle"] integerValue] == 0) {
         // standard
-        NSLog(@"STANDARD REPORT");
         *report = [McTemplateRenderer render:self.dictionaryWithStringsForObjects withResourceFileTemplate:@"R10ReportTemplate.html"];
     } else {
         // compact
-        NSLog(@"COMPACT REPORT");
         *report = [McTemplateRenderer render:self.dictionaryWithStringsForObjects withResourceFileTemplate:@"R10ReportTemplateCompact.html"];
     }
 
@@ -77,7 +74,7 @@
         return NO;
     }
 
-    if ([self.formData objectForKey:@"reportStyle"] == 0) {
+    if ([[self.formData objectForKey:@"reportStyle"] integerValue] == 0) {
         // standard
         *report = [McTemplateRenderer render:self.dictionaryWithStringsForObjects withResourceFileTemplate:@"R10EmailReportTemplate.html"];
     } else {
