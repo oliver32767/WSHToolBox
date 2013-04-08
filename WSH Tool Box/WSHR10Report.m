@@ -37,6 +37,18 @@
     float capture = saturationConcentration * 0.0001;
     float containment = saturationConcentration * 0.00001;
     
+    float exposureLimit = [[self.formData objectForKey:@"exposureLimit"] floatValue];
+    
+    float stel = [[self.formData objectForKey:@"stel"] floatValue];
+    if (stel == 0.0f) {
+        [self.formData setObject:[NSNumber numberWithFloat:exposureLimit * 3] forKey:@"stel"];
+    }
+    
+    float ceiling = [[self.formData objectForKey:@"ceiling"] floatValue];
+    if (ceiling == 0.0f) {
+        [self.formData setObject:[NSNumber numberWithFloat:exposureLimit * 5] forKey:@"ceiling"];
+    }
+    
     [self.formData setObject:[NSNumber numberWithFloat:saturationConcentration] forKey:@"saturationConcentration"];
     [self.formData setObject:[NSNumber numberWithFloat:confinedSpace] forKey:@"confinedSpace"];
     [self.formData setObject:[NSNumber numberWithFloat:poor] forKey:@"poor"];
