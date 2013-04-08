@@ -66,15 +66,19 @@
     QDecimalElement* vaporPressure = [[QDecimalElement alloc] initWithTitle:@"Vapor Pressure (mm)" value:0];
     [vaporPressure setKey:@"vaporPressure"];
 //    [vaporPressure setFractionDigits:1];
-    QDecimalElement* exposureLimit = [[QDecimalElement alloc] initWithTitle:@"Exposure Limit (ppm)" value:0];
+    QDecimalElement* exposureLimit = [[QDecimalElement alloc] initWithTitle:@"TLV/Exposure Limit (ppm)" value:0];
     [exposureLimit setKey:@"exposureLimit"];
     [exposureLimit setFractionDigits:3];
-    QDecimalElement* stel = [[QDecimalElement alloc] initWithTitle:@"STEL (ppm)" value:0];
+
+    QDecimalElement* stel = [[QDecimalElement alloc] initWithTitle:@"STEL* (ppm)" value:0];
     [stel setKey:@"stel"];
     [stel setFractionDigits:3];
-    QDecimalElement* ceiling = [[QDecimalElement alloc] initWithTitle:@"Ceiling (ppm)" value:0];
+    QDecimalElement* ceiling = [[QDecimalElement alloc] initWithTitle:@"Ceiling* (ppm)" value:0];
     [ceiling setKey:@"ceiling"];
     [ceiling setFractionDigits:3];
+    
+    //[chemicalInfo setFooter:@"* leave 0.000 to calculate deafult values"];
+    [chemicalInfo setFooter:@"* Leave the default value of 0.000 if unreported. Values based on TLV will be calculated instead."];
     
     [chemicalInfo addElement:chemicalName];
     [chemicalInfo addElement:vaporPressure];
@@ -98,7 +102,7 @@
     
     QSection* actions = [[QSection alloc] init];
     
-    QRadioElement* reportStyle = [[QRadioElement alloc] initWithItems:@[@"Standard", @"Compact"] selected:0 title:@"Report Style"];
+    QRadioElement* reportStyle = [[QRadioElement alloc] initWithItems:@[@"Full", @"Good Circulation Only"] selected:0 title:@"Report Style"];
     reportStyle.key = @"reportStyle";
     [actions addElement:reportStyle];
     
