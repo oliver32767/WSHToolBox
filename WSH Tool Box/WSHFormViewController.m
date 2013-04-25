@@ -101,10 +101,18 @@
     
     [self.navigationItem setBackBarButtonItem: backButton];
     
+    NSMutableArray* rightBarButtons = [[NSMutableArray alloc] init];
+    
     if (self.maintainHistory) {
-        UIBarButtonItem *historyButton = [[UIBarButtonItem alloc] initWithTitle:@"History" style:UIBarButtonItemStyleBordered target:self action:@selector(onHistory)];
-        self.navigationItem.rightBarButtonItem = historyButton;
+        UIBarButtonItem *historyButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"clock_24.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(onHistory)];
+//        UIBarButtonItem *historyButton = [[UIBarButtonItem alloc] initWithTitle:@"History" style:UIBarButtonItemStyleBordered target:self action:@selector(onHistory)];
+        [rightBarButtons addObject:historyButton];
+//        self.navigationItem.rightBarButtonItem = historyButton;
     }
+    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"trash_24.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(onClear)];
+//    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStyleBordered target:self action:@selector(onClear)];
+    [rightBarButtons addObject:clearButton];
+    self.navigationItem.rightBarButtonItems = rightBarButtons;
 }
 
 -(void) setQuickDialogTableView:(QuickDialogTableView *)quickDialogTableView
@@ -178,6 +186,11 @@
     WSHHtmlReportViewController* reportViewController = [[WSHHtmlReportViewController alloc] initWithNibName:@"WSHHtmlReportViewController" bundle:nil];
     reportViewController.report = report;
     [self.navigationController pushViewController:reportViewController animated:YES];
+}
+
+- (void) onClear
+{
+    [self setRoot: [self createRootElement]];
 }
 
 - (void) onHistory
