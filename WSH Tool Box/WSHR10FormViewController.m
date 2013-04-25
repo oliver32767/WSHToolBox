@@ -66,7 +66,7 @@
     QDecimalElement* vaporPressure = [[QDecimalElement alloc] initWithTitle:@"Vapor Pressure (mm)" value:0];
     [vaporPressure setKey:@"vaporPressure"];
 //    [vaporPressure setFractionDigits:1];
-    QDecimalElement* exposureLimit = [[QDecimalElement alloc] initWithTitle:@"TLV/Exposure Limit (ppm)" value:0];
+    QDecimalElement* exposureLimit = [[QDecimalElement alloc] initWithTitle:@"8hr Limit (ppm)" value:0];
     [exposureLimit setKey:@"exposureLimit"];
     [exposureLimit setFractionDigits:3];
 
@@ -78,7 +78,7 @@
     [ceiling setFractionDigits:3];
     
     //[chemicalInfo setFooter:@"* leave 0.000 to calculate deafult values"];
-    [chemicalInfo setFooter:@"* Leave the default value of 0.000 if unreported. Values based on TLV will be calculated instead."];
+    [chemicalInfo setFooter:@"* Leave the default value of 0.000 if unreported. Values based on 8hr limit will be calculated instead."];
     
     [chemicalInfo addElement:chemicalName];
     [chemicalInfo addElement:vaporPressure];
