@@ -56,7 +56,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStyleBordered target:self action:@selector(onClear)];
+    //UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStyleBordered target:self action:@selector(onClear)];
+    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"trash_24.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(onClear)];
     self.navigationItem.rightBarButtonItem = clearButton;
     if (_source.count == 0) {
         [self.navigationItem.rightBarButtonItem setEnabled:NO];
