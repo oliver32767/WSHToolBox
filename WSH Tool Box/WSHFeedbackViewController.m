@@ -29,7 +29,9 @@
 @end
 
 @implementation WSHFeedbackViewController
-
+{
+    bool viewIsResized;
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -51,6 +53,25 @@
                                    action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
+    viewIsResized = NO;
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.view endEditing:YES];
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self 
+                                                    name:UIKeyboardWillHideNotification  object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -113,6 +134,103 @@
 {
     [self.view endEditing:YES];
 }
+
+- (void)moveTextViewForKeyboard:(NSNotification*)aNotification up:(BOOL)up {
+    NSDictionary* userInfo = [aNotification userInfo];
+    NSTimeInterval animationDuration;
+    UIViewAnimationCurve animationCurve;
+    CGRect keyboardEndFrame;
+    
+    UITabBarController* tabBarController = self.navigationController.tabBarController;
+    UITextView* feedback = (UITextView*) [self.view viewWithTag:FEEDBACK_TAG];
+    
+    [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
+    [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
+    [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    [UIView setAnimationCurve:animationCurve];
+    
+    CGRect newFrame = feedback.frame;
+    CGRect keyboardFrame = [self.view convertRect:keyboardEndFrame toView:nil];
+    keyboardFrame.size.height -= tabBarController.tabBar.frame.size.height;
+    newFrame.size.height -= keyboardFrame.size.height * (up?1:-1);
+    feedback.frame = newFrame;
+    
+    [UIView commitAnimations];
+}
+
+- (void)keyboardWillShow:(NSNotification*)aNotification
+{
+//    buttonDone.enabled = true;
+    [self moveTextViewForKeyboard:aNotification up:YES];
+}
+
+- (void)keyboardWillHide:(NSNotification*)aNotification
+{
+//    buttonDone.enabled = false;
+    [self moveTextViewForKeyboard:aNotification up:NO];
+}
+
+/*
+-(void) keyboardWillShow:(NSNotification *)aNotification
+{
+    NSDictionary * userInfo = aNotification.userInfo;
+    NSTimeInterval animationDuration;
+    UIViewAnimationCurve animationCurve;
+    CGRect keyboardFrame;
+    [[userInfo valueForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
+    [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
+    [[userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];
+//    CFShow(self.view);
+    if (!viewIsResized) {
+        CGRect frame = self.view.frame;
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration:animationDuration];
+        [UIView setAnimationCurve:animationCurve];
+        frame.size.height -= keyboardFrame.size.height;
+        if (self.tabBarController) { // consider if there is a tab bar below
+            frame.size.height += self.tabBarController.tabBar.frame.size.height;
+        }
+        self.view.frame = frame;
+        viewIsResized = YES;
+    }
+    
+    [UIView commitAnimations];
+}
+
+-(void) keyboardWillHide:(NSNotification *)aNotification
+{
+//    CFShow(aNotification);
+//    CFShow(self.view);
+    NSDictionary * userInfo = aNotification.userInfo;
+    NSTimeInterval animationDuration;
+    UIViewAnimationCurve animationCurve;
+    CGRect keyboardFrame;
+    [[userInfo valueForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
+    [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
+    [[userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];
+    
+    if (viewIsResized) {
+        CGRect frame = self.view.frame;
+        
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration:animationDuration];
+        [UIView setAnimationCurve:animationCurve];
+        
+        frame.size.height += keyboardFrame.size.height;
+        if (self.tabBarController) {
+            frame.size.height -= self.tabBarController.tabBar.frame.size.height;
+        }
+        self.view.frame = frame;  
+        [UIView commitAnimations];
+        viewIsResized = NO;
+    }    
+}
+*/
 
 - (void)didReceiveMemoryWarning
 {
