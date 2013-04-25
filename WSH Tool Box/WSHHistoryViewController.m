@@ -66,7 +66,7 @@
 
 -(void) onClear {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Clear History"
-                                                    message:@"Are you sure you want to clear this forms history?"
+                                                    message:@"Are you sure you want to clear this form's history?"
                                                    delegate:self
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"Clear", nil];
