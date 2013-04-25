@@ -44,7 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStyleBordered target:self action:@selector(onSend)];
+    UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"paper_plane_24.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(onSend)];
     self.navigationItem.rightBarButtonItem = sendButton;
     [self applyMotif];
     
