@@ -22,7 +22,7 @@
 #import "WSHFormData.h"
 #import "WSHHistorySourceDelegate.h"
 
-@interface WSHFormViewController : QuickDialogController <WSHHistorySourceDelegate>
+@interface WSHFormViewController : QuickDialogController <WSHHistorySourceDelegate, UIAlertViewDelegate>
 
 @property BOOL maintainHistory;
 

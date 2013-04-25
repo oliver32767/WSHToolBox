@@ -188,9 +188,21 @@
     [self.navigationController pushViewController:reportViewController animated:YES];
 }
 
-- (void) onClear
+
+-(void) onClear {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Clear Form"
+                                                    message:@"Are you sure you want to clear this form?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Clear", nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [self setRoot: [self createRootElement]];
+    if (buttonIndex == 1) {
+        [self setRoot: [self createRootElement]];
+    }
 }
 
 - (void) onHistory
